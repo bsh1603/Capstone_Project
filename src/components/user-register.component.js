@@ -97,59 +97,45 @@ export default class Register extends Component {
 
   handleRegister(e) {
     e.preventDefault();
-    e.stopPropagation();
 
-    // this.setState({
-    //   message: "",
-    //   successful: false,
-    // });
+    this.setState({
+      message: "",
+      successful: false
+    });
 
-    this.form.validateAll(); // 예외처리 할것
+    this.form.validateAll();
 
-    axios
-      .post("/api/signup/user", this.state)
-      .then((res) => {
-              console.log(res);
-              console.log("데이터 전송 성공");
-            })
-      .catch((err) => console.error(err));
+    if (this.checkBtn.context._errors.length === 0) {
+      AuthService.register(
+        
+        this.state.email,
+        this.state.password,
+        this.state.name,
+        this.state.phone,
+        this.state.authentication_code,
+        
+      ).then(
+        response => {
+          this.setState({
+            message: response.data.message,
+            successful: true
+          });
+        },
+        error => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
 
-    // console.log({
-    //   this.state.email,
-    //   this.state.name,
-    //   this.state.pwd,
-    //   this.state.phone,
-    //   this.state.authentication_code,
-    //   this.state.team_name
-    // })
-
-    // if (this.checkBtn.context._errors.length === 0) {
-    //   AuthService.register(
-    //     this.state.username,
-    //     this.state.email,
-    //     this.state.password
-    //   ).then(
-    //     (response) => {
-    //       this.setState({
-    //         message: response.data.message,
-    //         successful: true,
-    //       });
-    //     },
-    //     (error) => {
-    //       const resMessage =
-    //         (error.response &&
-    //           error.response.data &&
-    //           error.response.data.message) ||
-    //         error.message ||
-    //         error.toString();
-
-    //       this.setState({
-    //         successful: false,
-    //         message: resMessage,
-    //       });
-    //     }
-    //   );
-    // }
+          this.setState({
+            successful: false,
+            message: resMessage
+          });
+        }
+      );
+    }
   }
 
   render() {

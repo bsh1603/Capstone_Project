@@ -48,7 +48,7 @@ export default class Register extends Component {
     this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
     this.onChangeTeamName = this.onChangeTeamName.bind(this);
     
-      this.onChangeAuthenticationCode.bind(this);
+    this.onChangeAuthenticationCode =  this.onChangeAuthenticationCode.bind(this);
 
     this.state = {
       email: "",
@@ -106,7 +106,7 @@ export default class Register extends Component {
     //   successful: false,
     // });
 
-    this.form.validateAll(); // 예외처리 로직 알아서 하고
+    this.form.validateAll(); // 예외처리 로직 ?
 
     axios
       .post("/api/signup/user", this.state)

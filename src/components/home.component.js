@@ -11,6 +11,8 @@ import AuthService from "../services/auth.service";
 import EditProfile from './edit-profile.component';
 import Work from './user-work';
 
+import TeamMember from './team-member';
+
 function Cal() {
   const [value, onChange] = useState(new Date());
 
@@ -124,13 +126,14 @@ export default class Home extends Component {
         </div>
         <Routes>
             <Route path="/work" element={ <Work></Work>} />
-            <Route path="/member" element={<Cal />} />
+            <Route path="/member" element={<TeamMember></TeamMember>} />
             <Route path="/inventory" element={<Cal />} />
             <Route path="/edit" element={<EditProfile />} />
         </Routes>
       <div>
 
-        <ToggleForm></ToggleForm>
+        <ToggleForm></ToggleForm> <br/>
+        
       </div>
 
       </div>

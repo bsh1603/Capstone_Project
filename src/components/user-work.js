@@ -1,5 +1,5 @@
 import React from "react";
-import Toggle from "./Toggle.component";
+
 
 export default class Work extends React.Component {
   state = {
@@ -16,7 +16,7 @@ export default class Work extends React.Component {
   render() {
     return (
       <form>
-        
+        근무조회
       </form>
     );
   }

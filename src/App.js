@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
-
 import Login from "./components/login.component";
 import Register from "./components/manager-register.component";
 import UserRegister from "./components/user-register.component";
@@ -64,7 +63,7 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
+          <Link to={"/home"} className="navbar-brand">
             ALBA v11.12
           </Link>
           
@@ -96,7 +95,7 @@ class App extends Component {
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
-                Home
+                
               </Link>
             </li>
           </div>

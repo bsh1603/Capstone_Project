@@ -4,6 +4,9 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import axios from "axios";
+import { Routes, Route, Link } from "react-router-dom";
+import { withRouter } from "../common/with-router";
+import { useNavigate } from 'react-router-dom';
 import AuthService from "../services/auth.service";
 
 const required = (value) => {
@@ -28,6 +31,7 @@ const email = (value) => {
 
 
 
+
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
@@ -38,7 +42,7 @@ const vpassword = (value) => {
   }
 };
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
@@ -113,6 +117,7 @@ export default class Register extends Component {
       .then((res) => {
               console.log(res);
               console.log("데이터 전송 성공");
+              this.props.router.navigate("/login");
             })
       .catch((err) => console.error(err));
 
@@ -239,3 +244,5 @@ export default class Register extends Component {
     );
   }
 }
+
+export default withRouter(Register);

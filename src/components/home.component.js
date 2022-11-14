@@ -2,7 +2,7 @@ import React, { Component , useState } from 'react';
 import Toggle from "./Toggle.component";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import UserService from "../services/user.service";
+
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
@@ -26,7 +26,7 @@ function Cal() {
 class ToggleForm extends React.Component {
   state = {
     checked: false,
-    size: "default"
+    size: "large"
   };
 
   handleChange = (e) => {
@@ -74,30 +74,14 @@ export default class Home extends Component {
     };
   }
 
-  componentDidMount() {
-    UserService.getPublicContent().then(
-      response => {
-        this.setState({
-          content: response.data
-        });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString()
-        });
-      }
-    );
-  }
+
 
   render() {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
-        </header>
+          
+        
         <div className='navbar'>
 
         <li className="nav-item" >
@@ -107,7 +91,7 @@ export default class Home extends Component {
         </li>
 
         <li className="nav-item" >
-                <Link to={"/home/member"} className="nsav-link">
+                <Link to={"/home/members"} className="nsav-link">
                   팀원조회
                 </Link>
         </li>
@@ -124,16 +108,16 @@ export default class Home extends Component {
         </li>
 
         </div>
-        <Routes>
+        
+        </header>
+      
+      <Routes>
             <Route path="/work" element={ <Work/>} />
             <Route path="/members" element={<TeamMember></TeamMember>} />
             <Route path="/inventory" element={<Inventory/>} />
             <Route path="/editprofile" element={<EditProfile />} /> 
         </Routes>
-      <div>
-
-        <ToggleForm></ToggleForm> <br/>    </div>
-
+      <div>        <ToggleForm></ToggleForm> <br/>    </div>
       </div>
 
     );

@@ -27,6 +27,7 @@ class Login extends Component {
     this.state = {
       email: "",
       pwd: "",
+      login : false
       // loading: false,
       // message: "",
     };
@@ -57,11 +58,14 @@ class Login extends Component {
     axios
       .post("http://localhost:8080/api/login", this.state)
       .then((res) => {
+        this.setState({login: true})
+        this.props.router.navigate("/home");
         console.log(res.data);
       })
       .catch((err) => console.error(err));
+      
     // if (this.checkBtn.context._errors.length === 0) {
-    //   AuthService.login(this.state.username, this.state.password).then(
+    //   AuthService.login(this.state.email, this.state.pwd).then(
     //     () => {
     //       this.props.router.navigate("/profile");
     //       window.location.reload();

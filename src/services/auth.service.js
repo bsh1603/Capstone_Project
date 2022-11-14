@@ -3,11 +3,11 @@ import axios from "axios";
 const API_URL = "http://localhost:8080/api/";
 
 class AuthService {
-  login(email, password) {
+  login(email, pwd) {
     return axios
       .post(API_URL + "login", {
         email,
-        password
+        pwd
       })
       .then(response => {
         if (response.data.accessToken) {
@@ -22,20 +22,21 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(name, email, password, phone,authentication_code ) {
-    return axios.post(API_URL + "signup", {
+  register(name, email, pwd, phone,authentication_code ) {
+    return axios.post(API_URL + "signup/manager", {
       name,
       email,
-      password,
+      pwd,
       phone, authentication_code
     });
   }
 
-  workerregister(name, email, password, phone,authentication_code ) {
+  workerregister(name, email, pwd, phone,authentication_code ) {
     return axios.post(API_URL + "signup/worker", {
-      name,
+      
       email,
-      password,
+      pwd,
+      name,
       phone, authentication_code
     });
   }

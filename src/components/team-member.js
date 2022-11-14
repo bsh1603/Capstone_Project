@@ -16,7 +16,7 @@ export default class TeamMember  extends React.Component {
   render() {
     return (
       <>
-        <header> Team Name</header>
+        <h1> Team Name</h1>
       </>
     );
   }

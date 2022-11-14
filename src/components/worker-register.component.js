@@ -5,6 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import axios from "axios";
 import AuthService from "../services/auth.service";
+import { withRouter } from "../common/with-router";
 
 const required = (value) => {
   if (!value) {
@@ -27,6 +28,7 @@ const email = (value) => {
 };
 
 
+
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
@@ -37,7 +39,7 @@ const vpassword = (value) => {
   }
 };
 
-export default class WorkerRegister extends Component {
+class WorkerRegister extends Component {
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
@@ -46,7 +48,8 @@ export default class WorkerRegister extends Component {
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
     this.onChangeTeamName = this.onChangeTeamName.bind(this);
-    this.onChangeAuthenticationCode = this.onChangeAuthenticationCode.bind(this);
+    
+    this.onChangeAuthenticationCode =  this.onChangeAuthenticationCode.bind(this);
 
     this.state = {
       email: "",
@@ -97,45 +100,25 @@ export default class WorkerRegister extends Component {
 
   handleRegister(e) {
     e.preventDefault();
+    e.stopPropagation();
 
-    this.setState({
-      message: "",
-      successful: false
-    });
+    // this.setState({
+    //   message: "",
+    //   successful: false,
+    // });
 
-    this.form.validateAll();
+    this.form.validateAll(); // 예외처리 로직 ?
 
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.workerregister(
-        
-        this.state.email,
-        this.state.password,
-        this.state.name,
-        this.state.phone,
-        this.state.authentication_code
-        
-      ).then(
-        response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+    axios
+      .post("http://localhost:8080/api/signup/worker", this.state)
+      .then((res) => {
+              console.log(res);
+              console.log("데이터 전송 성공");
+              this.props.router.navigate("/login");
+            })
+      .catch((err) => console.error(err));
 
-          this.setState({
-            successful: false,
-            message: resMessage
-          });
-        }
-      );
-    }
+    
   }
 
   render() {
@@ -192,17 +175,18 @@ export default class WorkerRegister extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="phone">전화번호</label>
+                  <label htmlFor="phonenumber">전화번호</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="phone"
+                    name="phonenumber"
                     value={this.state.phone}
                     onChange={this.onChangePhoneNumber}
                   />
                 </div>
 
-               
+                                
+
                 <div className="form-group">
                   <label> 인증코드 </label>
                   <Input
@@ -214,6 +198,7 @@ export default class WorkerRegister extends Component {
                   />
                 </div>
 
+                
                 <div className="form-group">
                   <button className="btn btn-primary btn-block">Sign Up</button>
                 </div>
@@ -247,3 +232,5 @@ export default class WorkerRegister extends Component {
     );
   }
 }
+
+export default withRouter(WorkerRegister);

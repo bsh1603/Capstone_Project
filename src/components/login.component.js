@@ -55,7 +55,7 @@ class Login extends Component {
 
     this.form.validateAll();
     axios
-      .post("/api/login", this.state)
+      .post("http://localhost:8080/api/login", this.state)
       .then((res) => {
         console.log(res.data);
       })

@@ -37,7 +37,7 @@ const vpassword = (value) => {
   }
 };
 
-export default class Register extends Component {
+export default class WorkerRegister extends Component {
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
@@ -106,13 +106,13 @@ export default class Register extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.register(
+      AuthService.workerregister(
         
         this.state.email,
         this.state.password,
         this.state.name,
         this.state.phone,
-        this.state.authentication_code,
+        this.state.authentication_code
         
       ).then(
         response => {
@@ -192,11 +192,11 @@ export default class Register extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="phonenumber">전화번호</label>
+                  <label htmlFor="phone">전화번호</label>
                   <Input
                     type="text"
                     className="form-control"
-                    name="phonenumber"
+                    name="phone"
                     value={this.state.phone}
                     onChange={this.onChangePhoneNumber}
                   />

@@ -109,7 +109,7 @@ export default class Register extends Component {
     this.form.validateAll(); // 예외처리 로직 ?
 
     axios
-      .post("/api/signup/user", this.state)
+      .post("http://localhost:8080/api/signup/manager", this.state)
       .then((res) => {
               console.log(res);
               console.log("데이터 전송 성공");

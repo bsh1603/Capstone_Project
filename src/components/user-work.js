@@ -15,9 +15,10 @@ export default class Work extends React.Component {
 
   render() {
     return (
-      <form>
+      <h2>
         근무조회
-      </form>
+      </h2>
+        
     );
   }
 }

@@ -6,7 +6,7 @@ import "./App.css";
 import AuthService from "./services/auth.service";
 import Login from "./components/login.component";
 import Register from "./components/manager-register.component";
-import UserRegister from "./components/user-register.component";
+import WorkerRegister from "./components/worker-register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
@@ -122,7 +122,7 @@ class App extends Component {
               </li>
 
               <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
+                <Link to={"/signup/manager"} className="nav-link">
                   매니저용 Sign Up
                 </Link>
                 
@@ -130,7 +130,7 @@ class App extends Component {
 
 
               <li className="nav-item">
-                <Link to={"/user/register"} className="nav-link">
+                <Link to={"/signup/worker"} className="nav-link">
                   알바생 Sign Up
                 </Link>
                 
@@ -142,11 +142,12 @@ class App extends Component {
         <div className="container mt-3">
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home/*" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/user/register" element={<UserRegister />} />
+            <Route path="/signup/manager" element={<Register />} />
+            <Route path="/signup/worker" element={<WorkerRegister />} />
             <Route path="/profile" element={<Profile />} />
+
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />

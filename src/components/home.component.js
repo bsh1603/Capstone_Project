@@ -10,7 +10,7 @@ import "./Toggle.css"
 import AuthService from "../services/auth.service";
 import EditProfile from './edit-profile.component';
 import Work from './user-work';
-
+import Inventory from './inventory-component';
 import TeamMember from './team-member';
 
 function Cal() {
@@ -25,7 +25,7 @@ function Cal() {
 
 class ToggleForm extends React.Component {
   state = {
-    checked: true,
+    checked: false,
     size: "default"
   };
 
@@ -98,43 +98,41 @@ export default class Home extends Component {
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
         </header>
-        <div >
+        <div className='navbar'>
 
         <li className="nav-item" >
-                <Link to={"/work"} className="nav-link">
+                <Link to={"/home/work"} className="nav-link">
                   근무조회
                 </Link>
         </li>
 
         <li className="nav-item" >
-                <Link to={"/member"} className="nav-link">
+                <Link to={"/home/member"} className="nsav-link">
                   팀원조회
                 </Link>
         </li>
 
         <li className="nav-item" >
-                <Link to={"/inventory"} className="nav-link">
+                <Link to={"/home/inventory"} className="nav-link">
                   재고관리
                 </Link>
         </li>
         <li className="nav-item" >
-                <Link to={"/editprofile"} className="nav-link">
+                <Link to={"/home/editprofile"} className="nav-link">
                   정보수정
                 </Link>
         </li>
 
         </div>
         <Routes>
-            <Route path="/work" element={ <Work></Work>} />
-            <Route path="/member" element={<TeamMember></TeamMember>} />
-            <Route path="/inventory" element={<Cal />} />
-            <Route path="/edit" element={<EditProfile />} />
+            <Route path="/work" element={ <Work/>} />
+            <Route path="/members" element={<TeamMember></TeamMember>} />
+            <Route path="/inventory" element={<Inventory/>} />
+            <Route path="/editprofile" element={<EditProfile />} /> 
         </Routes>
       <div>
 
-        <ToggleForm></ToggleForm> <br/>
-        
-      </div>
+        <ToggleForm></ToggleForm> <br/>    </div>
 
       </div>
 

@@ -1,14 +1,37 @@
 import React from "react";
-import Toggle from "./Toggle.component";
+import axios from "axios";
+import Form from "react-validation/build/form";
+import TeamService from "../services/team.service";
+import CheckButton from "react-validation/build/button";
 
 export default class TeamMember  extends React.Component {
-  state = {
-    team_name: ""
+  constructor(props) {
+    super(props);
     
-  };
+
+    this.state = {
+      team_name: "",
+      members: ""
+    };
+  }
+  
 
   handleChange = (e) => {
     this.setState({ team_name: e.target.checked });
+    
+  };
+
+  retrieveMembers() {
+    TeamService.getTeamMembers()
+      .then(response => {
+        this.setState({
+          members: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   };
 
   
@@ -16,8 +39,18 @@ export default class TeamMember  extends React.Component {
   render() {
     return (
       <>
-        <h1> Team Name</h1>
-      </>
+        <h2>TeamMember</h2>
+
+        <Form>
+        <div className="form-group">
+                  <button onClick={this.retrieveMembers} className="btn btn-success">
+                  회원조회
+                  </button>
+        </div>
+
+            
+          </Form>
+        </>
     );
   }
 }

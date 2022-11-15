@@ -33,6 +33,6 @@ label {
 
 
 .nav-item {
-
+  align-items: center;
   list-style: none;
 }

@@ -200,7 +200,8 @@ class WorkerRegister extends Component {
 
                 
                 <div className="form-group">
-                  <button className="btn btn-primary btn-block">Sign Up</button>
+                  <button className="btn btn-primary btn-block">
+                    알바생 회원가입</button>
                 </div>
               </div>
             )}

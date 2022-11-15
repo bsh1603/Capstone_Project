@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
-
+import Login from "./login.component";
 export default class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +14,7 @@ export default class EditProfile extends Component {
   }
 
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
+    const currentUser = Login.email;
 
     if (!currentUser) this.setState({ redirect: "/home" });
     this.setState({ currentUser: currentUser, userReady: true })
@@ -33,7 +33,7 @@ export default class EditProfile extends Component {
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.email}</strong> Profile Edit
+            <strong>{currentUser}</strong> Profile Edit
           </h3>
         </header>
         <p>

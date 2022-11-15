@@ -6,6 +6,8 @@ import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
 import axios from "axios";
 import { withRouter } from "../common/with-router";
+import { Link,Routes, Route, } from "react-router-dom";
+import "../App.css";
 
 const required = (value) => {
   if (!value) {
@@ -60,9 +62,12 @@ class Login extends Component {
       .then((res) => {
         this.setState({login: true})
         this.props.router.navigate("/home");
+        localStorage.setItem("user", JSON.stringify(res.data));
         console.log(res.data);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {console.error(err)
+        alert("로그인실패");
+      });
       
     // if (this.checkBtn.context._errors.length === 0) {
     //   AuthService.login(this.state.email, this.state.pwd).then(
@@ -143,6 +148,18 @@ class Login extends Component {
               </button>
             </div>
 
+            <div className="nav">           
+                                              
+                <Link to={"/signup/manager"} >
+                매니저 회원가입  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </Link>
+                              
+                
+            <Link to={"/signup/worker"} className="nav-item ">
+                알바생 회원가입
+            </Link>
+            
+            </div>
             {this.state.message && (
               <div className="form-group">
                 <div className="alert alert-danger" role="alert">

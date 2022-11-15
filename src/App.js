@@ -10,32 +10,39 @@ import WorkerRegister from "./components/worker-register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
+
 import BoardAdmin from "./components/board-admin.component";
 
+
+import AddTutorial from "./components/add-tutorial.component";
+import Tutorial from "./components/tutorial.component";
+import TutorialsList from "./components/tutorials-list.component";
 //import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 
+function getCurrentUser() {
+  return JSON.parse(localStorage.getItem('user'));;
+}
 class App extends Component {
   constructor(props) {
     super(props);
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showModeratorBoard: false,
+      
       showAdminBoard: false,
-      currentUser: undefined,
+      currentUser: undefined
     };
   }
-
+  
   componentDidMount() {
-    const user = AuthService.getCurrentUser();
+    const user = getCurrentUser();
 
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        
+        showAdminBoard: user.roles.includes("ROLE_MANAGER"),
       });
     }
     
@@ -51,38 +58,22 @@ class App extends Component {
   logOut() {
     AuthService.logout();
     this.setState({
-      showModeratorBoard: false,
+      
       showAdminBoard: false,
       currentUser: undefined,
     });
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
-
+    const { currentUser, showAdminBoard } = this.state;
+    
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/home"} className="navbar-brand">
-            ALBA v11.12
+            ALBA v11.13
           </Link>
           
-
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
-                </Link>
-              </li>
-            )}
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
 
             {currentUser && (
               <li className="nav-item">
@@ -104,7 +95,7 @@ class App extends Component {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  {currentUser.name}
+                  my profile
                 </Link>
               </li>
               <li className="nav-item">
@@ -117,13 +108,13 @@ class App extends Component {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
-                  Login
+                  Login /Logout
                 </Link>
               </li>
 
               <li className="nav-item">
                 <Link to={"/signup/manager"} className="nav-link">
-                  매니저용 Sign Up
+                  매니저 가입
                 </Link>
                 
               </li>
@@ -131,10 +122,25 @@ class App extends Component {
 
               <li className="nav-item">
                 <Link to={"/signup/worker"} className="nav-link">
-                  알바생 Sign Up
+                  알바생  가입
                 </Link>
                 
               </li>
+
+
+
+
+
+              <li className="nav-item">
+              <Link to={"/tutorials"} className="nav-link">
+                Tutorials
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/add"} className="nav-link">
+                Add Tutorial
+              </Link>
+            </li>
             </div>
           )}
         </nav>
@@ -149,8 +155,12 @@ class App extends Component {
             <Route path="/profile" element={<Profile />} />
 
             <Route path="/user" element={<BoardUser />} />
-            <Route path="/mod" element={<BoardModerator />} />
+            
             <Route path="/admin" element={<BoardAdmin />} />
+
+            <Route path="/tutorials" element={<TutorialsList/>} />
+            <Route path="/add" element={<AddTutorial/>} />
+            {/* <Route path="/tutorials/:id" element={<Tutorial/>} /> */}
           </Routes>
         </div>
 

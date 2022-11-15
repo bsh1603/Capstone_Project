@@ -117,9 +117,14 @@ class Register extends Component {
       .then((res) => {
               console.log(res);
               console.log("데이터 전송 성공");
+              alert("회원가입 성공");
+              localStorage.setItem("user", JSON.stringify(res.data));
               this.props.router.navigate("/login");
             })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err)
+        alert("회원가입 실패");
+      });
 
     
   }
@@ -212,7 +217,8 @@ class Register extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <button className="btn btn-primary btn-block">Sign Up</button>
+                  <button className="btn btn-primary btn-block">
+                    매니저 회원가입</button>
                 </div>
               </div>
             )}

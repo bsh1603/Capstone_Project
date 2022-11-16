@@ -1,27 +1,27 @@
 import React, { Component } from "react";
-import TutorialDataService from "../services/tutorial.service";
+import ItemsDataService from "../services/Item.service";
 import { Link } from "react-router-dom";
 
-export default class TutorialsList extends Component {
+export default class ItemsList extends Component {
   constructor(props) {
     super(props);
     this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveTutorials = this.retrieveTutorials.bind(this);
+    this.retrieveItems = this.retrieveItems.bind(this);
     this.refreshList = this.refreshList.bind(this);
-    this.setActiveTutorial = this.setActiveTutorial.bind(this);
-    this.removeAllTutorials = this.removeAllTutorials.bind(this);
+    this.setActiveItems = this.setActiveItems.bind(this);
+    this.removeAllItems = this.removeAllItems.bind(this);
     this.searchTitle = this.searchTitle.bind(this);
 
     this.state = {
-      tutorials: [],
-      currentTutorial: null,
+      Items: [],
+      currentItems: null,
       currentIndex: -1,
       searchTitle: ""
     };
   }
 
   componentDidMount() {
-    this.retrieveTutorials();
+    this.retrieveItems();
   }
 
   onChangeSearchTitle(e) {
@@ -32,11 +32,11 @@ export default class TutorialsList extends Component {
     });
   }
 
-  retrieveTutorials() {
-    TutorialDataService.getAll()
+  retrieveItems() {
+    ItemsDataService.getAll()
       .then(response => {
         this.setState({
-          tutorials: response.data
+          Items: response.data
         });
         console.log(response.data);
       })
@@ -46,22 +46,22 @@ export default class TutorialsList extends Component {
   }
 
   refreshList() {
-    this.retrieveTutorials();
+    this.retrieveItems();
     this.setState({
-      currentTutorial: null,
+      currentItems: null,
       currentIndex: -1
     });
   }
 
-  setActiveTutorial(tutorial, index) {
+  setActiveItems(Items, index) {
     this.setState({
-      currentTutorial: tutorial,
+      currentItems: Items,
       currentIndex: index
     });
   }
 
-  removeAllTutorials() {
-    TutorialDataService.deleteAll()
+  removeAllItems() {
+    ItemsDataService.deleteAll()
       .then(response => {
         console.log(response.data);
         this.refreshList();
@@ -73,14 +73,14 @@ export default class TutorialsList extends Component {
 
   searchTitle() {
     this.setState({
-      currentTutorial: null,
+      currentItems: null,
       currentIndex: -1
     });
 
-    TutorialDataService.findByTitle(this.state.searchTitle)
+    ItemsDataService.findByTitle(this.state.searchTitle)
       .then(response => {
         this.setState({
-          tutorials: response.data
+          Items: response.data
         });
         console.log(response.data);
       })
@@ -90,7 +90,7 @@ export default class TutorialsList extends Component {
   }
 
   render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
+    const { searchTitle, Items, currentItems, currentIndex } = this.state;
 
     return (
       <div className="list row">
@@ -115,56 +115,56 @@ export default class TutorialsList extends Component {
           </div>
         </div>
         <div className="col-md-6">
-          <h4>Tutorials List</h4>
+          <h4> List</h4>
 
           <ul className="list-group">
-            {tutorials &&
-              tutorials.map((tutorial, index) => (
+            {Items &&
+              Items.map((Items, index) => (
                 <li
                   className={
                     "list-group-item " +
                     (index === currentIndex ? "active" : "")
                   }
-                  onClick={() => this.setActiveTutorial(tutorial, index)}
+                  onClick={() => this.setActiveItems(Items, index)}
                   key={index}
                 >
-                  {tutorial.title}
+                  {Items.title}
                 </li>
               ))}
           </ul>
 
           <button
             className="m-3 btn btn-sm btn-danger"
-            onClick={this.retrieveTutorials}
+            onClick={this.removeAllItems}
           >
-            List All
+            delete All
           </button>
         </div>
         <div className="col-md-6">
-          {currentTutorial ? (
+          {currentItems ? (
             <div>
-              <h4>Tutorial</h4>
+              <h4>Items</h4>
               <div>
                 <label>
                   <strong>Title:</strong>
                 </label>{" "}
-                {currentTutorial.title}
+                {currentItems.title}
               </div>
               <div>
                 <label>
                   <strong>Description:</strong>
                 </label>{" "}
-                {currentTutorial.description}
+                {currentItems.description}
               </div>
               <div>
                 <label>
                   <strong>Status:</strong>
                 </label>{" "}
-                {currentTutorial.published ? "Published" : "Pending"}
+                {currentItems.published ? "Published" : "Pending"}
               </div>
 
               <Link
-                to={"/tutorials/" + currentTutorial.id}
+                to={"/Items/" + currentItems.id}
                 className="badge badge-warning"
               >
                 Edit
@@ -173,7 +173,7 @@ export default class TutorialsList extends Component {
           ) : (
             <div>
               <br />
-              <p>Please click on a Tutorial...</p>
+              <p>Please click on a item...</p>
             </div>
           )}
         </div>

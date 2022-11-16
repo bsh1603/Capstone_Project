@@ -13,10 +13,9 @@ import BoardUser from "./components/board-user.component";
 
 import BoardAdmin from "./components/board-admin.component";
 
-
-import AddTutorial from "./components/add-tutorial.component";
-import Tutorial from "./components/tutorial.component";
-import TutorialsList from "./components/tutorials-list.component";
+import AddItem from "./components/add-inventory.component";
+import ItemsList from "./components/inventory-list.component";
+import Item from "./components/inventory.component";
 //import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 
@@ -132,13 +131,13 @@ class App extends Component {
 
 
               <li className="nav-item">
-              <Link to={"/tutorials"} className="nav-link">
-                Tutorials
+              <Link to={"/item"} className="nav-link">
+                재고관리
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={"/add"} className="nav-link">
-                Add Tutorial
+              <Link to={"/additem"} className="nav-link">
+                Add 재고
               </Link>
             </li>
             </div>
@@ -154,13 +153,12 @@ class App extends Component {
             <Route path="/signup/worker" element={<WorkerRegister />} />
             <Route path="/profile" element={<Profile />} />
 
-            <Route path="/user" element={<BoardUser />} />
-            
-            <Route path="/admin" element={<BoardAdmin />} />
+            {/* <Route path="/user" element={<BoardUser />} />
+            <Route path="/admin" element={<BoardAdmin />} /> */}
 
-            <Route path="/tutorials" element={<TutorialsList/>} />
-            <Route path="/add" element={<AddTutorial/>} />
-            {/* <Route path="/tutorials/:id" element={<Tutorial/>} /> */}
+            <Route path="/item" element={<ItemsList/>} />
+            <Route path="/additem" element={<AddItem/>}/>
+            <Route path="/item/:id" element={<Item/>}  /> 
           </Routes>
         </div>
 

@@ -101,14 +101,14 @@ export default class Home extends Component {
                 </Link>
         </li>
 
-        <li className="nav-item" >
+        {/* <li className="nav-item" >
                 <Link to={"/home/inventory"} className="nav-link">
                   재고관리
                 </Link>
-        </li>
+        </li> */}
         <li className="nav-item" >
                 <Link to={"/home/editprofile"} className="nav-link">
-                  정보수정
+                  프로필수정
                 </Link>
         </li>
 
@@ -119,7 +119,7 @@ export default class Home extends Component {
       <Routes>
             <Route path="/work" element={ <WorkTime/>} />
             <Route path="/members" element={<TeamMember></TeamMember>} />
-            <Route path="/inventory" element={<Inventory/>} />
+            {/* <Route path="/inventory" element={<Inventory/>} /> */}
             <Route path="/editprofile" element={<EditProfile />} /> 
         </Routes>
       <div>        <ToggleForm></ToggleForm> <br/>    </div>

@@ -55,13 +55,16 @@ class Login extends Component {
     //   message: "",
     //   loading: true,
     // });
-
+    AuthService.login(this.state.email, this.state.pwd)
     this.form.validateAll();
+    
     axios
       .post("http://localhost:8080/api/login", this.state)
       .then((res) => {
-        this.setState({login: true})
+        
         this.props.router.navigate("/home");
+        localStorage.setItem('email', this.state.email);
+        
         localStorage.setItem("user", JSON.stringify(res.data));
         console.log(res.data);
       })

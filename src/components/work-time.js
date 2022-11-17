@@ -6,20 +6,16 @@ import CheckButton from "react-validation/build/button";
 export default class WorkTime extends React.Component {
   state = {
     checked: false,
-    size: "default"
+    
   };
 
   handleChange = (e) => {
-    this.setState({ checked: e.target.checked });
+    
     this.form.validateAll();
-    axios
-      .get("http://localhost:8080/api/work/today", this.state)
-      .then((res) => {
-        this.setState({})
-        
-        console.log(res.data);
-      })
-      .catch((err) => console.error(err));
+    
+    fetch('http://localhost:8080/api/work/today')
+  .then((response) => response.text())
+  .then((data) => alert(data));
   
   };
 

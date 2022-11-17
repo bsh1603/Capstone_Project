@@ -10,14 +10,14 @@ import WorkerRegister from "./components/worker-register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-
 import BoardAdmin from "./components/board-admin.component";
 
 import AddItem from "./components/add-inventory.component";
 import ItemsList from "./components/inventory-list.component";
 import Item from "./components/inventory.component";
-//import AuthVerify from "./common/auth-verify";
+import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+//import TeamMember from "./components/team-member";
 
 function getCurrentUser() {
   return JSON.parse(localStorage.getItem('user'));;
@@ -30,21 +30,21 @@ class App extends Component {
     this.state = {
       
       showAdminBoard: false,
-      currentUser: undefined
+      currentUser: localStorage.getItem("email")
     };
   }
   
   componentDidMount() {
-    const user = getCurrentUser();
+    const user = localStorage.getItem("email");
 
     if (user) {
       this.setState({
-        currentUser: user,
+        
         
         showAdminBoard: user.roles.includes("ROLE_MANAGER"),
       });
     }
-    
+
     EventBus.on("logout", () => {
       this.logOut();
     });
@@ -64,13 +64,13 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, showAdminBoard } = this.state;
+    const currentUser = localStorage.getItem("email");
     
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/home"} className="navbar-brand">
-            ALBA v11.13
+          <Link to={"/"} className="navbar-brand">
+            ALBA24
           </Link>
           
 
@@ -82,19 +82,22 @@ class App extends Component {
               </li>
             )}
 
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                
-              </Link>
-            </li>
-          </div>
+          
 
           {currentUser ? (
+
+            
             <div className="navbar-nav ml-auto">
+              
+            <li className="nav-item">
+              <Link to={"/home"} className="nav-link">
+                home
+              </Link>
+            </li>
+          
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  my profile
+                  myprofile
                 </Link>
               </li>
               <li className="nav-item">
@@ -107,7 +110,7 @@ class App extends Component {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
-                  Login /Logout
+                  Login 
                 </Link>
               </li>
 
@@ -126,9 +129,17 @@ class App extends Component {
                 
               </li>
 
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  my profile
+                </Link>
+              </li>
 
-
-
+              <li className="nav-item">
+                <Link to={"/members"} className="nav-link">
+                  회원조회
+                </Link>
+              </li>
 
               <li className="nav-item">
               <Link to={"/item"} className="nav-link">
@@ -152,6 +163,7 @@ class App extends Component {
             <Route path="/signup/manager" element={<Register />} />
             <Route path="/signup/worker" element={<WorkerRegister />} />
             <Route path="/profile" element={<Profile />} />
+            {/* <Route path="/members" element={<TeamMember />} /> */}
 
             {/* <Route path="/user" element={<BoardUser />} />
             <Route path="/admin" element={<BoardAdmin />} /> */}
@@ -162,7 +174,7 @@ class App extends Component {
           </Routes>
         </div>
 
-        {/* <AuthVerify logOut={this.logOut}/> */}
+        <AuthVerify logOut={this.logOut}/>
       </div>
     );
   }

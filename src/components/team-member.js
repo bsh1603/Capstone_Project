@@ -1,58 +1,32 @@
-import React from "react";
-import axios from "axios";
-import Form from "react-validation/build/form";
-import TeamService from "../services/team.service";
-import CheckButton from "react-validation/build/button";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-export default class TeamMember  extends React.Component {
-  constructor(props) {
-    super(props);
+
+const TeamMember = () => {
+  const [data, setData] = useState(null);
+  const onClick = async () => {
+    //axios.get() { }
     
 
-    this.state = {
-      team_name: "",
-      members: ""
-    };
+    fetch("http://localhost:8080/api/members ")
+  .then(function(response) {
+    return response.text();
+  })
+  .then(function(myJson) {
+    console.log(JSON.stringify(myJson));
+  });
   }
-  
-
-  handleChange = (e) => {
-    this.setState({ team_name: e.target.checked });
-    
-  };
-
-  retrieveMembers() {
-    TeamService.getTeamMembers()
-      .then(response => {
-        this.setState({
-          members: response.data
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-
-  
-
-  render() {
-    return (
-      <>
-        <h2>TeamMember</h2>
-
-        <Form>
-        <div className="form-group">
-                  <button onClick={this.retrieveMembers} className="btn btn-success">
-                  회원조회
-                  </button>
-        </div>
-
-            
-          </Form>
-        </>
-    );
-  }
-}
+  return (
+    <div>
+      <div>
+        <button onClick={onClick}>불러오기</button>
+      </div>
+      {/* {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} readOnly={true} />} */}
+    </div>
+  );
+};
 
 
+
+
+export default TeamMember;

@@ -5,6 +5,7 @@ import "./App.css";
 
 import AuthService from "./services/auth.service";
 import Login from "./components/login.component";
+import { isLogin } from "./components/login.component";
 import Register from "./components/manager-register.component";
 import WorkerRegister from "./components/worker-register.component";
 import Home from "./components/home.component";
@@ -15,13 +16,12 @@ import BoardAdmin from "./components/board-admin.component";
 import AddItem from "./components/add-inventory.component";
 import ItemsList from "./components/inventory-list.component";
 import Item from "./components/inventory.component";
-import AuthVerify from "./common/auth-verify";
+//import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 //import TeamMember from "./components/team-member";
 
-function getCurrentUser() {
-  return JSON.parse(localStorage.getItem('user'));;
-}
+//const IsLogin = () => !!localStorage.getItem('email');
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -30,25 +30,11 @@ class App extends Component {
     this.state = {
       
       showAdminBoard: false,
-      currentUser: localStorage.getItem("email")
+    
     };
   }
   
-  componentDidMount() {
-    const user = localStorage.getItem("email");
-
-    if (user) {
-      this.setState({
-        
-        
-        showAdminBoard: user.roles.includes("ROLE_MANAGER"),
-      });
-    }
-
-    EventBus.on("logout", () => {
-      this.logOut();
-    });
-  }
+  
 
   componentWillUnmount() {
     EventBus.remove("logout");
@@ -56,16 +42,19 @@ class App extends Component {
 
   logOut() {
     AuthService.logout();
+    localStorage.clear();
     this.setState({
       
       showAdminBoard: false,
       currentUser: undefined,
+      
+      
     });
   }
 
-  render() {
-    const currentUser = localStorage.getItem("email");
-    
+  render(props) {
+    let currentUser = localStorage.getItem("user");
+    //let currentUser = true;
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -74,17 +63,9 @@ class App extends Component {
           </Link>
           
 
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
+                    
 
-          
-
-          {currentUser ? (
+          {currentUser? (
 
             
             <div className="navbar-nav ml-auto">
@@ -100,40 +81,7 @@ class App extends Component {
                   myprofile
                 </Link>
               </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login 
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/signup/manager"} className="nav-link">
-                  매니저 가입
-                </Link>
-                
-              </li>
-
-
-              <li className="nav-item">
-                <Link to={"/signup/worker"} className="nav-link">
-                  알바생  가입
-                </Link>
-                
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  my profile
-                </Link>
-              </li>
+              
 
               <li className="nav-item">
                 <Link to={"/members"} className="nav-link">
@@ -151,6 +99,45 @@ class App extends Component {
                 Add 재고
               </Link>
             </li>
+            
+            <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={this.logOut}>
+                  LogOut
+                </a>
+              </li>
+
+
+            </div>
+
+            
+          ) : (
+            <div className="navbar-nav ml-auto">
+              
+
+              <li className="nav-item">
+                <Link to={"/signup/manager"} className="nav-link">
+                  매니저 가입
+                </Link>
+                
+              </li>
+
+
+              <li className="nav-item">
+                <Link to={"/signup/worker"} className="nav-link">
+                  알바생  가입
+                </Link>
+                
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/login"} className="nav-link">
+                  Login 
+                </Link>
+              </li>
+
+                            
+
+
             </div>
           )}
         </nav>
@@ -174,7 +161,7 @@ class App extends Component {
           </Routes>
         </div>
 
-        <AuthVerify logOut={this.logOut}/>
+        {/* <AuthVerify logOut={this.logOut}/> */}
       </div>
     );
   }

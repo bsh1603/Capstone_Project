@@ -42,6 +42,22 @@ export default class WorkTime extends React.Component {
               </button>
             </div>
 
+            <button
+                className="btn btn-success " 
+                type="submit"               
+              >
+                
+                <span>근무시작</span>
+              </button>
+
+              <button
+                className="btn btn-danger " 
+                type="submit"               
+              >
+                
+                <span>근무종료</span>
+              </button>
+
       </Form>
 
       <div className='navbar'>

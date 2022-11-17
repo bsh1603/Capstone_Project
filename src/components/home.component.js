@@ -84,8 +84,7 @@ export default class Home extends Component {
     return (
       <div >
         
-        <header className="jumbotron">
-          
+        <header className="jumbotron">          
         
         <div className='navbar'>
 

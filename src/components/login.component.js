@@ -6,7 +6,7 @@ import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
 import axios from "axios";
 import { withRouter } from "../common/with-router";
-import { Link,Routes, Route, } from "react-router-dom";
+import { Link, Routes, Route, } from "react-router-dom";
 import "../App.css";
 
 const required = (value) => {
@@ -19,6 +19,8 @@ const required = (value) => {
   }
 };
 
+export const isLogin = () => !!localStorage.getItem('user');
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -29,11 +31,12 @@ class Login extends Component {
     this.state = {
       email: "",
       pwd: "",
-      login : false
+      
       // loading: false,
-      // message: "",
+      
     };
   }
+
 
   onChangeEmail(e) {
     this.setState({
@@ -64,7 +67,7 @@ class Login extends Component {
         
         this.props.router.navigate("/home");
         localStorage.setItem('email', this.state.email);
-        
+        //localStorage.setItem('loggedin', true);        
         localStorage.setItem("user", JSON.stringify(res.data));
         console.log(res.data);
       })

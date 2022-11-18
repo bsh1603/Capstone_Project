@@ -18,6 +18,7 @@ import ItemsList from "./components/inventory-list.component";
 import Item from "./components/inventory.component";
 //import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import WorkTime from "./components/work-time";
 //import TeamMember from "./components/team-member";
 
 //const IsLogin = () => !!localStorage.getItem('email');
@@ -82,13 +83,12 @@ class App extends Component {
                 </Link>
               </li>
               
-
               <li className="nav-item">
-                <Link to={"/members"} className="nav-link">
-                  회원조회
-                </Link>
-              </li>
-
+              <Link to={"/work"} className="nav-link">
+                근무조회
+              </Link>
+            </li>
+          
               <li className="nav-item">
               <Link to={"/item"} className="nav-link">
                 재고관리
@@ -150,10 +150,8 @@ class App extends Component {
             <Route path="/signup/manager" element={<Register />} />
             <Route path="/signup/worker" element={<WorkerRegister />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/work" element={<WorkTime />} />
             {/* <Route path="/members" element={<TeamMember />} /> */}
-
-            {/* <Route path="/user" element={<BoardUser />} />
-            <Route path="/admin" element={<BoardAdmin />} /> */}
 
             <Route path="/item" element={<ItemsList/>} />
             <Route path="/additem" element={<AddItem/>}/>

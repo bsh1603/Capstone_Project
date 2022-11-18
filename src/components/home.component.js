@@ -13,6 +13,7 @@ import WorkTime from './work-time';
 import Inventory from './inventory-component';
 import TeamMember from './team-member';
 
+
 function Cal() {
   const [value, onChange] = useState(new Date());
 
@@ -26,15 +27,15 @@ function Cal() {
 class ToggleForm extends React.Component {
   state = {
     checked: false,
-    size: "large",
+    
     work: false
   };
 
   handleChange = (e) => {
     this.setState({ checked: e.target.checked });
-
+    const work_start_time = Date.now();
     axios
-      .post("http://localhost:8080/api/work/start", this.state)
+      .post("/api/work/start", {withCredentials: true})
       .then((res) => {
         this.setState({work:true})
         
@@ -53,9 +54,9 @@ class ToggleForm extends React.Component {
 
   render() {
     return (
-      <form>       
+      <>       
                 
-        <Toggle
+        {/* <Toggle
           checked={this.state.checked}
           text="근무시작"
           size={this.state.size}
@@ -63,8 +64,8 @@ class ToggleForm extends React.Component {
           onChange={this.handleChange}
           offstyle="btn-danger"
           onstyle="btn-success"
-        />
-      </form>
+        /> */}
+      </>
     );
   }
 }

@@ -111,9 +111,9 @@ class Register extends Component {
     // });
 
     this.form.validateAll(); // 예외처리 로직 ?
-
+    
     axios
-      .post("http://localhost:8080/api/signup/manager", this.state)
+      .post("/api/signup/manager", this.state)
       .then((res) => {
               console.log(res);
               console.log("데이터 전송 성공");

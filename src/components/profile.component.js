@@ -9,7 +9,7 @@ export default class Profile extends Component {
     this.state = {
       redirect: null,
       userReady: false,
-      currentUser: { email: "" }
+      
     };
   }
 

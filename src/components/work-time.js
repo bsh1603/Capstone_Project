@@ -1,58 +1,86 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import authHeader from '../services/auth-header';
+import moment from 'moment';
+import 'moment/locale/ko';	//대한민국
 
-const API_URL = "http://localhost:8080/";
-const WorkTime = () => {
-  //const [data, setData] = useState(null);
-  
-  const onStart = async () => {
-    
-    const work_start_time = Date.now();
-    
-    fetch("/api/work/start",  
-    {method: 'POST', work_start_time: {work_start_time}})
-    .then(function(response) {
-    return response.text();
-    })
-  .then(function(myJson) {
-    console.log(JSON.stringify(myJson));
-    });
-}
-  const onEnd = async () => {
-        
-  const work_end_time = Date.now();
-  console.log(work_end_time);
-  fetch("/api/work/start",
-  {method: 'POST', work_end_time: {work_end_time}})
-  .then(function(response) {
-    return response.text();
-  })
-  .then(function(myJson) {
-    console.log(JSON.stringify(myJson));
-  });
+
+
+class WorkTime extends Component {
+  constructor(props) {
+    super(props);
+    this.handleStart = this.handleStart.bind(this);
+    this.handleEnd= this.handleEnd.bind(this);   
+
+    this.state = {
+      work_start_time : "",
+      work_end_time : "",
+      work_time:""     
+    };
   }
 
+
+  handleStart(e) {
+    
+    
+    this.setState({work_start_time : Date.now()});
+      
+    return axios
+      .post("/api/work/start", this.state)
+      .then((res) => {
+        
+        
+        localStorage.setItem("user", JSON.stringify(res.data));
+        console.log(res.data);
+      })
+      .catch((err) => {console.error(err)
+        alert("실패");
+      });}
+    
+  
+  handleEnd(e) {
+    
+    
+        this.setState({work_end_time : Date.now()});
+          
+        return axios
+          .post("/api/work/end", this.state)
+          .then((res) => {
+            
+            
+            localStorage.setItem("user", JSON.stringify(res.data));
+            console.log(res.data);
+          })
+          .catch((err) => {console.error(err)
+            alert("실패");
+          });}
   
 
 
-  return (
+  render(){
+    const { work_start_time } = this.state;
+    const { work_end_time } = this.state;
+    return(
     <div>
       <div>
-        <button className="btn btn-success" onClick={onStart}>work start</button>
+        <label>근무시작</label>
+        <button className="btn btn-success" onClick={this.handleStart}>work start
+        </button>
+        {work_start_time}
       </div>
-
-      <div>
-        <button className="btn btn-danger" onClick={onEnd}>work end</button>
-      </div>
-
-
     
-      {/* {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} readOnly={true} />} */}
+      <div>
+
+      <label>근무종료</label>
+        <button className="btn btn-danger" onClick={this.handleEnd}>work end</button>
+        {work_end_time}
+      </div>
+
+
     </div>
   );
 };
-
+}
 
 
 

@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
-import Login from "./login.component";
-export default class EditProfile extends Component {
+
+export default class Profile extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       redirect: null,
       userReady: false,
-      currentUser: { email: "" }
+      
     };
   }
 
   componentDidMount() {
-    const currentUser = Login.email;
+    const currentUser = AuthService.getCurrentUser();
 
-    if (!currentUser) this.setState({ redirect: "/home" });
+    if (!currentUser) this.setState({ redirect: "/login" });
     this.setState({ currentUser: currentUser, userReady: true })
   }
 
@@ -33,22 +33,19 @@ export default class EditProfile extends Component {
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser}</strong> Profile Edit
+          <strong>{localStorage.getItem('email')}</strong> Profile
           </h3>
         </header>
         <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+          
+        
         </p>
         <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.id}
+          <strong> </strong>{" "}
+          
+          
         </p>
-        <p>
-          <strong>name:</strong>{" "}
-          {currentUser.name}
-        </p>
+        
         <strong>Authorities:</strong>
         <ul>
           {currentUser.roles &&

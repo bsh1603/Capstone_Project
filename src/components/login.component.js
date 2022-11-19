@@ -19,7 +19,7 @@ const required = (value) => {
   }
 };
 
-export const isLogin = () => !!localStorage.getItem('user');
+//export const isLogin = () => !!localStorage.getItem('user');
 
 class Login extends Component {
   constructor(props) {

@@ -10,7 +10,7 @@ import "./Toggle.css"
 import AuthService from "../services/auth.service";
 import EditProfile from './edit-profile.component';
 import WorkTime from './work-time';
-import Inventory from './inventory-component';
+import ItemsList from './inventory-list.component';
 import TeamMember from './team-member';
 
 
@@ -101,11 +101,11 @@ export default class Home extends Component {
                 </Link>
         </li>
 
-        {/* <li className="nav-item" >
-                <Link to={"/home/inventory"} className="nav-link">
+        <li className="nav-item" >
+                <Link to={"/home/item"} className="nav-link">
                   재고관리
                 </Link>
-        </li> */}
+        </li>
         <li className="nav-item" >
                 <Link to={"/home/editprofile"} className="nav-link">
                   프로필수정
@@ -119,7 +119,7 @@ export default class Home extends Component {
       <Routes>
             <Route path="/work" element={ <WorkTime/>} />
             <Route path="/members" element={<TeamMember></TeamMember>} />
-            {/* <Route path="/inventory" element={<Inventory/>} /> */}
+            <Route path="/item" element={<ItemsList/>} />
             <Route path="/editprofile" element={<EditProfile />} /> 
         </Routes>
       <div>        <ToggleForm></ToggleForm> <br/>    </div>

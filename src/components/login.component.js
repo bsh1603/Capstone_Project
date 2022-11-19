@@ -69,7 +69,8 @@ class Login extends Component {
         localStorage.setItem('email', this.state.email);
         //localStorage.setItem('loggedin', true);        
         localStorage.setItem("user", JSON.stringify(res.data));
-        console.log(res.data);
+        const json = localStorage.getItem("user");
+        console.log(JSON.parse(json).id);
       })
       .catch((err) => {console.error(err)
         alert("로그인실패");

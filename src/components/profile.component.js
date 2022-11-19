@@ -37,9 +37,9 @@ export default class Profile extends Component {
           </h3>
         </header>
         <p>
-          <strong>access Token:</strong>{" "}
+          <strong>user id: </strong>{JSON.parse(localStorage.getItem("user")).id}
           
-          {currentUser.accessToken}
+          
         </p>
         <p>
           <strong> </strong>{" "}

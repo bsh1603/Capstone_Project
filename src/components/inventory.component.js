@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import AddItem from "./add-inventory.component";
 import ItemDataService from "../services/Item.service";
 
 export default class Item extends Component {
@@ -189,6 +191,13 @@ export default class Item extends Component {
             <p>Please click on a Item...</p>
           </div>
         )}
+
+      <li className="nav-item">
+              <Link to={"/additem"} className="nav-link">
+                Add 재고
+              </Link>
+            </li>
+    <Route path="/additem" element={<AddItem/>}/>
       </div>
     );
   }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ItemsDataService from "../services/Item.service";
-import { Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
+import AddItem from "./add-inventory.component";
+import Item from "./inventory.component";
 
 export default class ItemsList extends Component {
   constructor(props) {
@@ -93,6 +95,7 @@ export default class ItemsList extends Component {
     const { searchTitle, Items, currentItems, currentIndex } = this.state;
 
     return (
+      <>
       <div className="list row">
         <div className="col-md-8">
           <div className="input-group mb-3">
@@ -115,7 +118,7 @@ export default class ItemsList extends Component {
           </div>
         </div>
         <div className="col-md-6">
-          <h4> List</h4>
+          <h4> Item List</h4>
 
           <ul className="list-group">
             {Items &&
@@ -176,8 +179,26 @@ export default class ItemsList extends Component {
               <p>Please click on a item...</p>
             </div>
           )}
+
+          
         </div>
       </div>
+      <li className="nav-item">
+              <Link to={"/home/item/add"} className="nav-link">
+                
+                Add 재고
+              </Link>
+
+              <Link to={"/home/item/:id"} className="nav-link"></Link>
+            </li>
+      
+        <Routes>
+      
+            <Route path="/home/item/add" element={<AddItem />} /> 
+            <Route path="/home/item/:id" element={<Item/>}  /> 
+        </Routes>
+    
+    </>
     );
   }
 }

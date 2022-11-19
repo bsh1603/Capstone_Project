@@ -5,7 +5,7 @@ import "./App.css";
 
 import AuthService from "./services/auth.service";
 import Login from "./components/login.component";
-import { isLogin } from "./components/login.component";
+//import { isLogin } from "./components/login.component";
 import Register from "./components/manager-register.component";
 import WorkerRegister from "./components/worker-register.component";
 import Home from "./components/home.component";
@@ -59,9 +59,9 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            ALBA24
-          </Link>
+          {/* <Link to={"/"} className="navbar-brand"></Link> */}
+          <div className="navbar-brand">ALBA24</div>
+          
                           
 
           {currentUser? (
@@ -95,15 +95,11 @@ class App extends Component {
               </li>
           
               <li className="nav-item">
-              <Link to={"/item"} className="nav-link">
-                재고관리
+              <Link to={"/item/add"} className="nav-link">
+                재고add
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/additem"} className="nav-link">
-                Add 재고
-              </Link>
-            </li>
+            
             
             <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
@@ -165,9 +161,9 @@ class App extends Component {
             <Route path="/chart" element={<Chart />} />
             {/* <Route path="/members" element={<TeamMember />} /> */}
 
-            <Route path="/item" element={<ItemsList/>} />
-            <Route path="/additem" element={<AddItem/>}/>
-            <Route path="/item/:id" element={<Item/>}  /> 
+            <Route path="/item/add" element={<AddItem/>} />
+            
+            
 
 
           </Routes>

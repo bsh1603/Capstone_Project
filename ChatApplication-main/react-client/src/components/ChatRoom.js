@@ -90,6 +90,12 @@ const ChatRoom = () => {
             }
     }
 
+    const onKeyPress = (e) =>{
+        if(e.key == 'Enter'){
+            sendValue();
+        }
+    }
+
     const sendPrivateValue=()=>{
         if (stompClient) {
           var chatMessage = {
@@ -123,9 +129,11 @@ const ChatRoom = () => {
             <div className="member-list">
                 <ul>
                     <li onClick={()=>{setTab("CHATROOM")}} className={`member ${tab==="CHATROOM" && "active"}`}>Chatroom</li>
-                    {[...privateChats.keys()].map((name,index)=>(
+
+                   {/*[...privateChats.keys()].map((name,index)=>(
                         <li onClick={()=>{setTab(name)}} className={`member ${tab===name && "active"}`} key={index}>{name}</li>
-                    ))}
+                    ))*/}
+
                 </ul>
             </div>
             {tab==="CHATROOM" && <div className="chat-content">
@@ -140,7 +148,7 @@ const ChatRoom = () => {
                 </ul>
 
                 <div className="send-message">
-                    <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} /> 
+                    <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onKeyPress={onKeyPress} onChange={handleMessage} />
                     <button type="button" className="send-button" onClick={sendValue}>send</button>
                 </div>
             </div>}

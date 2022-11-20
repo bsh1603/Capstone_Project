@@ -75,31 +75,13 @@ class App extends Component {
               </Link>
             </li>
           
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  myprofile
-                </Link>
-              </li>
-              
-              <li className="nav-item">
-              <Link to={"/work"} className="nav-link">
-                근무조회
-              </Link>
-            </li>
-
-            
             <li className="nav-item">
                 <Link to={"/chart"} className="nav-link">
-                  Chart 
+                  근무Chart 
                 </Link>
               </li>
-          
-              <li className="nav-item">
-              <Link to={"/item/add"} className="nav-link">
-                재고add
-              </Link>
-            </li>
             
+          
             
             <li className="nav-item">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
@@ -130,11 +112,7 @@ class App extends Component {
                 
               </li>
 
-              <li className="nav-item">
-                <Link to={"/chart"} className="nav-link">
-                  Chart 
-                </Link>
-              </li>
+              
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
                   Login 
@@ -155,14 +133,12 @@ class App extends Component {
             <Route path="/login" element={<Login />} />
             <Route path="/signup/manager" element={<Register />} />
             <Route path="/signup/worker" element={<WorkerRegister />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/work" element={<WorkTime />} />
-
+            
+          
             <Route path="/chart" element={<Chart />} />
             {/* <Route path="/members" element={<TeamMember />} /> */}
 
-            <Route path="/item/add" element={<AddItem/>} />
-            
+            <Route path="/item/add" element={<AddItem/>} />          
             
 
 

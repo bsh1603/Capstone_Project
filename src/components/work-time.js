@@ -5,7 +5,6 @@ import moment from 'moment';
 import 'moment/locale/ko';	//대한민국
 
 
-
 class WorkTime extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +18,6 @@ class WorkTime extends Component {
     };
   }
 
-
   handleStart(e) {
     
     
@@ -29,8 +27,7 @@ class WorkTime extends Component {
       .post("/api/work/start", this.state)
       .then((res) => {
         
-        
-        localStorage.setItem("user", JSON.stringify(res.data));
+                // localStorage.setItem("user", JSON.stringify(res.data));
         console.log(res.data);
       })
       .catch((err) => {console.error(err)

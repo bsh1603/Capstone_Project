@@ -12,6 +12,7 @@ import EditProfile from './edit-profile.component';
 import WorkTime from './work-time';
 import ItemsList from './inventory-list.component';
 import TeamMember from './team-member';
+import Profile from './profile.component';
 
 
 function Cal() {
@@ -107,8 +108,8 @@ export default class Home extends Component {
                 </Link>
         </li>
         <li className="nav-item" >
-                <Link to={"/home/editprofile"} className="nav-link">
-                  프로필수정
+                <Link to={"/home/profile"} className="nav-link">
+                  마이프로필
                 </Link>
         </li>
 
@@ -120,9 +121,9 @@ export default class Home extends Component {
             <Route path="/work" element={ <WorkTime/>} />
             <Route path="/members" element={<TeamMember></TeamMember>} />
             <Route path="/item" element={<ItemsList/>} />
-            <Route path="/editprofile" element={<EditProfile />} /> 
+            <Route path="/profile" element={<Profile />} /> 
         </Routes>
-      <div>        <ToggleForm></ToggleForm> <br/>    </div>
+      <div>        <br/>    </div>
       </div>
 
     );

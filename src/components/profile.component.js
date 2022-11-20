@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
+import { Link, Routes, Route, } from "react-router-dom";
+import EditProfile from "./edit-profile.component";
+
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -29,31 +32,37 @@ export default class Profile extends Component {
 
     return (
       <div className="container">
-        {(this.state.userReady) ?
+        
         <div>
         <header className="jumbotron">
           <h3>
           <strong>{localStorage.getItem('email')}</strong> Profile
           </h3>
         </header>
-        <p>
-          <strong>user id: </strong>{JSON.parse(localStorage.getItem("user")).id}
-          
-          
-        </p>
-        <p>
-          <strong> </strong>{" "}
-          
-          
-        </p>
         
-        <strong>Authorities:</strong>
+          <strong>user id: </strong>{JSON.parse(localStorage.getItem("user")).id} <br/>
+
+          <strong>name: </strong>{JSON.parse(localStorage.getItem("user")).name} <br/>
+
+        
+        <strong>Authorities:</strong> {JSON.parse(localStorage.getItem("user")).admin}
         <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+          
+          
         </ul>
-      </div>: null}
       </div>
-    );
+
+      <Link to={"/home/editprofile"} className="nav-item ">
+                프로필 수정
+      </Link>
+
+      <Routes>
+            
+        <Route path="/home/editprofile" element={<EditProfile/>} />
+      </Routes>
+
+
+      </div>
+    )
   }
 }

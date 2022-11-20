@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import {useParams} from "react-router-dom";
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
 
 var stompClient =null;
 const ChatRoom = () => {
     const [privateChats, setPrivateChats] = useState(new Map());     
-    const [publicChats, setPublicChats] = useState([]); 
-    const [tab,setTab] =useState("CHATROOM");
+    const [publicChats, setPublicChats] = useState([]);
+    const {roomId} = useParams();
+    //초기 tab을 roomId로 설정
+    const [tab,setTab] =useState(roomId);
+
     const [userData, setUserData] = useState({
         username: '',
-        receivername: '',
+        receivername: roomId,
         connected: false,
         message: ''
       });
@@ -48,6 +52,9 @@ const ChatRoom = () => {
                 }
                 break;
             case "MESSAGE":
+                if(payloadData.receiverName!= roomId){
+                    break;
+                }
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 break;
@@ -77,12 +84,15 @@ const ChatRoom = () => {
         const {value}=event.target;
         setUserData({...userData,"message": value});
     }
+
+    //메세지 보내는 함수
     const sendValue=()=>{
             if (stompClient) {
               var chatMessage = {
                 senderName: userData.username,
                 message: userData.message,
-                status:"MESSAGE"
+                status:"MESSAGE",
+                  receiverName: userData.receivername
               };
               console.log(chatMessage);
               stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
@@ -128,7 +138,7 @@ const ChatRoom = () => {
         <div className="chat-box">
             <div className="member-list">
                 <ul>
-                    <li onClick={()=>{setTab("CHATROOM")}} className={`member ${tab==="CHATROOM" && "active"}`}>Chatroom</li>
+                    <li onClick={()=>{setTab(roomId)}} className={`member ${tab===roomId && "active"}`}>{roomId}th chatroom</li>
 
                    {/*[...privateChats.keys()].map((name,index)=>(
                         <li onClick={()=>{setTab(name)}} className={`member ${tab===name && "active"}`} key={index}>{name}</li>
@@ -136,28 +146,30 @@ const ChatRoom = () => {
 
                 </ul>
             </div>
-            {tab==="CHATROOM" && <div className="chat-content">
+            {3==3 && <div className="chat-content">
                 <ul className="chat-messages">
                     {publicChats.map((chat,index)=>(
-                        <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                            {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+
+                        <li className={`message ${(chat.senderName === userData.username || 3!=3) && "self"}`} key={index}>
+                             {chat.receiverName == roomId && chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
                             <div className="message-data">{chat.message}</div>
                             {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
                         </li>
+
                     ))}
                 </ul>
-
+                {/*브로드캐스팅 보내는 부분 */}
                 <div className="send-message">
                     <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onKeyPress={onKeyPress} onChange={handleMessage} />
                     <button type="button" className="send-button" onClick={sendValue}>send</button>
                 </div>
             </div>}
-            {tab!=="CHATROOM" && <div className="chat-content">
+            {tab!==roomId && <div className="chat-content">
                 <ul className="chat-messages">
                     {[...privateChats.get(tab)].map((chat,index)=>(
                         <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
                             {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                            <div className="message-data">{chat.message}</div>
+                            <div className="message-data">private send : {chat.message}</div>
                             {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
                         </li>
                     ))}

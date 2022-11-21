@@ -55,29 +55,30 @@ export default class TeamMember extends Component {
         {this.state.teammember &&
         <ul>
           {this.state.teammember.map(item => 
-          
+          <>
+          {item.admin == "ROLE_WORKER" &&
           <li> <button onClick={()=>{ //
             const member_id = JSON.parse(localStorage.getItem("user")).id
   
-            const id = JSON.stringify(member_id);
+            //const id = JSON.stringify(member_id);
           
             
-            axios.post(`/api/member/${id}`)
+            // axios.post(`/api/member/${id}`)
             
-            .then(function(response) {
-              console.log(typeof response.data);
-              console.log(response.data)
-              // localStorage.setItem("team_member", JSON.stringify(response.data));
+            // .then(function(response) {
+            //   console.log(typeof response.data);
+            //   console.log(response.data)
+            //   localStorage.setItem("team_member", JSON.stringify(response.data));
               
-            })
-            //this.setState({teammember:JSON.parse(localStorage.getItem("team_member"))}) 
+            // })
+            // this.setState({teammember:JSON.parse(localStorage.getItem("team_member"))}) 
             
           }}
           className='btn-danger'>추방</button>
           
           <br></br>
-          <strong>이름</strong>  {item.name} 전화번호 {item.phone} email {item.email} 직책 {item.admin} 
-          </li> )}
+          <strong>{item.team_name} 팀</strong> 이름 {item.name} 전화번호 {item.phone} email {item.email} 직책 {item.admin} {}
+          </li> }</> )}
         </ul>}
 
       </div>

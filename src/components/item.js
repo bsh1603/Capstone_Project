@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "../App.css";
 import axios from "axios";
 
-
+//재고
 export default function  Item() {
   const get_id = useRef(null);
   const get_title = useRef(null);

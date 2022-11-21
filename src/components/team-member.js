@@ -35,7 +35,7 @@ export default class TeamMember extends Component {
   return (
     <div>
       <div>
-      <h3>조회</h3>
+      <h3>팀 조회</h3>
         <button className='btn-primary' onClick={()=>{ // 팀멤버조회버튼
           const member_id = JSON.parse(localStorage.getItem("user")).id
   
@@ -51,15 +51,15 @@ export default class TeamMember extends Component {
           })
           this.setState({teammember:JSON.parse(localStorage.getItem("team_member"))}) 
           console.log('local storage',JSON.parse(localStorage.getItem("team_member")))
-        }}>팀원 조회하기</button> 
-        {this.state.teammember &&
+        }}>알바생 조회하기</button> 
+        {this.state.teammember && 
         <ul>
           {this.state.teammember.map(item => 
           <>
-          {item.admin == "ROLE_WORKER" &&
-          <li> <button onClick={()=>{ //
-            const member_id = JSON.parse(localStorage.getItem("user")).id
-  
+          {item.admin === "ROLE_WORKER" &&
+          <li> {JSON.parse(localStorage.getItem("user")).admin === "ROLE_MANAGER" &&
+          <button onClick={()=>{ // 팀에서 해당 멤버 삭제
+            //const member_id = JSON.parse(localStorage.getItem("user")).id
             //const id = JSON.stringify(member_id);
           
             
@@ -75,8 +75,8 @@ export default class TeamMember extends Component {
             
           }}
           className='btn-danger'>추방</button>
+          }
           
-          <br></br>
           <strong>{item.team_name} 팀</strong> 이름 {item.name} 전화번호 {item.phone} email {item.email} 직책 {item.admin} {}
           </li> }</> )}
         </ul>}

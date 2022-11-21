@@ -24,7 +24,7 @@ class WorkTime extends Component {
     this.setState({work_start_time : Date.now()});
       
     return axios
-      .post("/api/work/start", this.state)
+      .post("/api/work/start", {work_start_time : Date.now()} )
       .then((res) => {
         
                 // localStorage.setItem("user", JSON.stringify(res.data));
@@ -41,7 +41,7 @@ class WorkTime extends Component {
         this.setState({work_end_time : Date.now()});
           
         return axios
-          .post("/api/work/end", this.state)
+          .post("/api/work/end", {work_end_time : Date.now()}  )
           .then((res) => {
             
             

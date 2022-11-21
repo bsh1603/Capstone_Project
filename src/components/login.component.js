@@ -67,7 +67,7 @@ class Login extends Component {
         
         this.props.router.navigate("/home");
         localStorage.setItem('email', this.state.email);
-        //localStorage.setItem('loggedin', true);        
+                
         localStorage.setItem("user", JSON.stringify(res.data));
         const json = localStorage.getItem("user");
         console.log(JSON.parse(json));

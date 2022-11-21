@@ -20,7 +20,7 @@ import Item from "./components/inventory.component";
 import EventBus from "./common/EventBus";
 import WorkTime from "./components/work-time";
 import { Chart } from "./components/chart";
-//import TeamMember from "./components/team-member";
+
 
 //const IsLogin = () => !!localStorage.getItem('email');
 
@@ -45,6 +45,7 @@ class App extends Component {
   logOut() {
     AuthService.logout();
     localStorage.clear();
+    this.props.router.navigate("/login");
     this.setState({
       
       showAdminBoard: false,
@@ -70,13 +71,13 @@ class App extends Component {
             <div className="navbar-nav ml-auto">
               
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
+              <Link to={"home"} className="nav-link">
                 home
               </Link>
             </li>
           
             <li className="nav-item">
-                <Link to={"/chart"} className="nav-link">
+                <Link to={"chart"} className="nav-link">
                   근무Chart 
                 </Link>
               </li>
@@ -84,7 +85,7 @@ class App extends Component {
           
             
             <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
+                <a href="login" className="nav-link" onClick={this.logOut}>
                   LogOut
                 </a>
               </li>
@@ -98,7 +99,7 @@ class App extends Component {
               
 
               <li className="nav-item">
-                <Link to={"/signup/manager"} className="nav-link">
+                <Link to={"signup/manager"} className="nav-link">
                   매니저 가입
                 </Link>
                 
@@ -106,7 +107,7 @@ class App extends Component {
 
 
               <li className="nav-item">
-                <Link to={"/signup/worker"} className="nav-link">
+                <Link to={"signup/worker"} className="nav-link">
                   알바생  가입
                 </Link>
                 
@@ -114,7 +115,7 @@ class App extends Component {
 
               
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
+                <Link to={"login"} className="nav-link">
                   Login 
                 </Link>
               </li>
@@ -129,16 +130,16 @@ class App extends Component {
         <div className="container mt-3">
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/home/*" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup/manager" element={<Register />} />
-            <Route path="/signup/worker" element={<WorkerRegister />} />
+            <Route path="home/*" element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup/manager" element={<Register />} />
+            <Route path="signup/worker" element={<WorkerRegister />} />
             
           
-            <Route path="/chart" element={<Chart />} />
+            <Route path="chart" element={<Chart />} />
             {/* <Route path="/members" element={<TeamMember />} /> */}
 
-            <Route path="/item/add" element={<AddItem/>} />          
+            <Route path="item/add" element={<AddItem/>} />          
             
 
 

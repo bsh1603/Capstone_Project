@@ -35,13 +35,13 @@ export default class TeamMember extends Component {
   return (
     <div>
       <div>
-        {/* <button onClick={this.onClick}>같은 팀 members 조회</button> */}
-        <button className='btn-primary' onClick={()=>{
+      <h3>조회</h3>
+        <button className='btn-primary' onClick={()=>{ // 팀멤버조회버튼
           const member_id = JSON.parse(localStorage.getItem("user")).id
   
           const id = JSON.stringify(member_id);
           
-          axios.get(`/api/member/${id}`)
+          axios.get(`/api/member/${id}`) 
           
           .then(function(response) {
             console.log(typeof response.data);
@@ -56,7 +56,7 @@ export default class TeamMember extends Component {
         <ul>
           {this.state.teammember.map(item => 
           
-          <li> <button onClick={()=>{ //추방
+          <li> <button onClick={()=>{ //
             const member_id = JSON.parse(localStorage.getItem("user")).id
   
             const id = JSON.stringify(member_id);
@@ -71,12 +71,11 @@ export default class TeamMember extends Component {
               
             })
             //this.setState({teammember:JSON.parse(localStorage.getItem("team_member"))}) 
-            //console.log('local storage',JSON.parse(localStorage.getItem("team_member")))
+            
           }}
           className='btn-danger'>추방</button>
           
- 
-
+          <br></br>
           <strong>이름</strong>  {item.name} 전화번호 {item.phone} email {item.email} 직책 {item.admin} 
           </li> )}
         </ul>}

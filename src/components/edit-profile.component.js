@@ -39,15 +39,15 @@ const vpassword = (value) => {
   }
 };
 
-export default class EditProfile extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
-    this.handleRegister = this.handleRegister.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
-    
+    this.onChangeTeamName = this.onChangeTeamName.bind(this);
     
     this.onChangeAuthenticationCode =  this.onChangeAuthenticationCode.bind(this);
 
@@ -85,41 +85,28 @@ export default class EditProfile extends Component {
     });
   }
 
-  onChangeTeamName(e) {
-    this.setState({
-      team_name: e.target.value,
-    });
-  }
 
-  onChangeAuthenticationCode(e) {
-    this.setState({
-      authentication_code: e.target.value,
-    });
-  }
 
-  handleRegister(e) {
+  handleEdit(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    // this.setState({
-    //   message: "",
-    //   successful: false,
-    // });
-
     this.form.validateAll(); // 예외처리 로직 
 
-    axios
-      .post("/api/signup/worker", this.state)
-      .then((res) => {
-              console.log(res);
-              console.log("데이터 전송 성공");
-              alert("회원가입 성공");
-              this.props.router.navigate("/login");
 
-            })
-      .catch((err) => {console.error(err)
-        alert("회원가입 fail")
-  });
+    this.props.router.navigate("/login");
+  //   axios
+  //     .post("/api/signup/worker", this.state)
+  //     .then((res) => {
+  //             console.log(res);
+  //             console.log("데이터 전송 성공");
+  //             alert("수정 성공");
+  //             this.props.router.navigate("/login");
+
+  //           })
+  //     .catch((err) => {console.error(err)
+  //       alert("수정 fail")
+  // });
 
     
   }
@@ -127,15 +114,10 @@ export default class EditProfile extends Component {
   render() {
     return (
       <div className="col-md-12">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+      
 
           <Form
-            onSubmit={this.handleRegister}
+            onSubmit={this.handleEdit}
             ref={(c) => {
               this.form = c;
             }}
@@ -220,8 +202,9 @@ export default class EditProfile extends Component {
             />
           </Form>
         </div>
-      </div>
+      
     );
   }
 }
 
+export default withRouter(EditProfile);

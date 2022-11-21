@@ -3,7 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import AddItem from "./add-inventory.component";
 import ItemDataService from "../services/Item.service";
 
-export default class Item extends Component {
+export default class Items extends Component {
   constructor(props) {
     super(props);
     this.onChangeTitle = this.onChangeTitle.bind(this);

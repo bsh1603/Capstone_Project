@@ -13,6 +13,7 @@ import WorkTime from './work-time';
 import ItemsList from './inventory-list.component';
 import TeamMember from './team-member';
 import Profile from './profile.component';
+import Item from './item';
 
 
 function Cal() {
@@ -28,17 +29,17 @@ function Cal() {
 class ToggleForm extends React.Component {
   state = {
     checked: false,
-    
-    work: false
+
+
   };
 
   handleChange = (e) => {
-    this.setState({ checked: e.target.checked });
-    const work_start_time = Date.now();
+    //this.setState({ checked: e.target.checked });
+    //const work_start_time = Date.now();
     axios
       .post("/api/work/start", {withCredentials: true})
       .then((res) => {
-        this.setState({work:true})
+        
         
         console.log(res.data);
       })
@@ -91,24 +92,24 @@ export default class Home extends Component {
         <div className='navbar'>
 
         <li className="nav-item" >
-                <Link to={"/home/work"} className="nav-link">
+                <Link to={"work"} className="nav-link">
                   근무조회
                 </Link>
         </li>
 
         <li className="nav-item" >
-                <Link to={"/home/members"} className="nsav-link">
+                <Link to={"members"} className="nav-link">
                   팀원조회
                 </Link>
         </li>
 
         <li className="nav-item" >
-                <Link to={"/home/item"} className="nav-link">
+                <Link to={"item"} className="nav-link">
                   재고관리
                 </Link>
         </li>
         <li className="nav-item" >
-                <Link to={"/home/profile"} className="nav-link">
+                <Link to={"profile"} className="nav-link">
                   마이프로필
                 </Link>
         </li>
@@ -118,10 +119,10 @@ export default class Home extends Component {
         </header>
       
       <Routes>
-            <Route path="/work" element={ <WorkTime/>} />
-            <Route path="/members" element={<TeamMember></TeamMember>} />
-            <Route path="/item" element={<ItemsList/>} />
-            <Route path="/profile" element={<Profile />} /> 
+            <Route path="work" element={ <WorkTime/>} />
+            <Route path="members" element={<TeamMember></TeamMember>} />
+            <Route path="item" element={<Item/>} />
+            <Route path="profile" element={<Profile />} /> 
         </Routes>
       <div>        <br/>    </div>
       </div>

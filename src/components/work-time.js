@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import authHeader from '../services/auth-header';
+
 import moment from 'moment';
-import 'moment/locale/ko';	//대한민국
+import 'moment/locale/ko';	
 
 
 class WorkTime extends Component {
@@ -10,11 +10,12 @@ class WorkTime extends Component {
     super(props);
     this.handleStart = this.handleStart.bind(this);
     this.handleEnd= this.handleEnd.bind(this);   
+    this.handleTime= this.handleTime.bind(this);   
 
     this.state = {
-      work_start_time : "",
-      work_end_time : "",
-      work_time:""     
+      work_start_time : undefined,
+      work_end_time : undefined,
+      work_today: undefined     
     };
   }
 
@@ -22,12 +23,12 @@ class WorkTime extends Component {
     
     
     this.setState({work_start_time : Date.now()});
-      
+    
     return axios
       .post("/api/work/start", {work_start_time : Date.now()} )
       .then((res) => {
         
-                // localStorage.setItem("user", JSON.stringify(res.data));
+        
         console.log(res.data);
       })
       .catch((err) => {console.error(err)
@@ -45,7 +46,24 @@ class WorkTime extends Component {
           .then((res) => {
             
             
-            localStorage.setItem("user", JSON.stringify(res.data));
+            //localStorage.setItem("worktime", JSON.stringify(res.data));
+            console.log(res.data);
+          })
+          .catch((err) => {console.error(err)
+            alert("실패");
+          });}
+
+    handleTime(e) {
+    
+    
+        //this.setState({work_today : Number(this.work_end_time)-Number(this.work_start_time)});
+          
+        axios
+          .get("/api/work/today" )
+          .then((res) => {
+            
+            
+            //localStorage.setItem("todaywork", JSON.stringify(res.data));
             console.log(res.data);
           })
           .catch((err) => {console.error(err)
@@ -57,21 +75,27 @@ class WorkTime extends Component {
   render(){
     const { work_start_time } = this.state;
     const { work_end_time } = this.state;
+    const { work_today } = this.state;
     return(
     <div>
+      <h3>근무</h3>
       <div>
         <label>근무시작</label>
         <button className="btn btn-success" onClick={this.handleStart}>work start
         </button>
         {work_start_time}
-      </div>
-    
-      <div>
+      
+          
 
       <label>근무종료</label>
         <button className="btn btn-danger" onClick={this.handleEnd}>work end</button>
         {work_end_time}
+      
+        <label>오늘근무시간 </label>
+        <button className="btn btn-primary" onClick={this.handleTime}>work time</button>
+        {work_today}
       </div>
+
 
 
     </div>

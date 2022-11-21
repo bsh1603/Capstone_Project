@@ -10,23 +10,22 @@ export default class Profile extends Component {
     super(props);
 
     this.state = {
-      redirect: null,
+      currentUser: undefined,
+
       userReady: false,
       
     };
   }
 
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
+    const currentUser = JSON.parse(localStorage.getItem("user")).name
 
     if (!currentUser) this.setState({ redirect: "/login" });
     this.setState({ currentUser: currentUser, userReady: true })
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Navigate to={this.state.redirect} />
-    }
+  
 
     const { currentUser } = this.state;
 
@@ -52,13 +51,13 @@ export default class Profile extends Component {
         </ul>
       </div>
 
-      <Link to={"/home/editprofile"} className="nav-item ">
+      <Link to={"editprofile"} className="nav-item"  >
                 프로필 수정
       </Link>
 
       <Routes>
             
-        <Route path="/home/editprofile" element={<EditProfile/>} />
+        <Route path="editprofile" element={<EditProfile/>} />
       </Routes>
 
 

@@ -25,7 +25,7 @@ public class RoomEntity {
     private Integer Id;
 
     @Column(length = 200)
-    private String content;
+    private String Roomname;
 
     @Column
     private Integer teamnumber;

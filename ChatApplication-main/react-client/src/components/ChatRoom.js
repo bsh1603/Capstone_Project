@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {useParams} from "react-router-dom";
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
+import axios from 'axios';
 
 var stompClient =null;
 const ChatRoom = () => {
@@ -19,6 +20,9 @@ const ChatRoom = () => {
       });
     useEffect(() => {
       console.log(userData);
+      console.log("************************");
+      console.log("************************");
+      console.log("************************");
     }, [userData]);
 
     const connect =()=>{
@@ -129,9 +133,25 @@ const ChatRoom = () => {
         setUserData({...userData,"username": value});
     }
 
-    const registerUser=()=>{
+    function getUser(){
+        axios.get('/user/12')
+        console.log(" getUser success!! ");
+    }
+
+    function postUser(){
+        axios.post('/server',{firstName : "heo"});
+        console.log(" postUser success!! ");
+
+    }
+
+    function registerUser(){
+        console.log("register !");
+        postUser();
         connect();
     }
+
+
+
     return (
     <div className="container">
         {userData.connected?
@@ -182,17 +202,19 @@ const ChatRoom = () => {
             </div>}
         </div>
         :
+            //멤버 인식
+            //여기서 이름치고 입장함.
         <div className="register">
             <input
                 id="user-name"
-                placeholder="Enter your name"
+                placeholder="이름을 입력하세요"
                 name="userName"
                 value={userData.username}
                 onChange={handleUsername}
                 margin="normal"
               />
-              <button type="button" onClick={registerUser}>
-                    connect
+              <button type="button" onClick={registerUser} >
+                    입장
               </button> 
         </div>}
     </div>

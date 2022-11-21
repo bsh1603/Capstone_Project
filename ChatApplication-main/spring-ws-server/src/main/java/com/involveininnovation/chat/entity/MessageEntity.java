@@ -26,8 +26,10 @@ public class MessageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
+
     @Column(length = 200)
-    private String Roomname;
+    private String content;
+
 
     @ManyToOne
     private RoomEntity roomEntity;

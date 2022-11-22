@@ -152,7 +152,7 @@ const ChatRoom = () => {
         console.log("Message+++++++++++++++++++++++");
         console.log(firstid);
         console.log("Message+++++++++++++++++++++++");
-        axios.post(`/api/message/${roomId}`,{roomId : firstid, sender : sender , content : content})
+        axios.post(`/api/message/${roomId}`,{sender : sender ,roomId : firstid})
             .then((res)=>{
                 console.log(res.data)
             }).catch((err)=>{console.log(err)})

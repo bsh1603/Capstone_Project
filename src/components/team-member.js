@@ -18,7 +18,7 @@ export default class TeamMember extends Component {
 
     this.state = {
       
-      teammember : undefined,            
+      teammember:JSON.parse(localStorage.getItem("team_member"))           
       
     };
   }
@@ -30,22 +30,7 @@ export default class TeamMember extends Component {
       <div>
       <h3>팀 조회</h3>
       
-        <button className='btn-primary' onClick={()=>{ // 팀멤버조회버튼
-          const member_id = JSON.parse(localStorage.getItem("user")).id
-  
-          const id = JSON.stringify(member_id);
-          
-          axios.get(`/api/member/${id}`) 
-          
-          .then(function(response) {
-            console.log(typeof response.data);
-            console.log(response.data)
-            localStorage.setItem("team_member", JSON.stringify(response.data));
-            
-          })
-          this.setState({teammember:JSON.parse(localStorage.getItem("team_member"))}) 
-          console.log('local storage',JSON.parse(localStorage.getItem("team_member")))
-        }}>알바생 조회하기</button> 
+        
 
         <Table>
         {this.state.teammember && 
@@ -54,20 +39,18 @@ export default class TeamMember extends Component {
           <ul >
           {item.admin === "ROLE_WORKER" &&
           <li > {JSON.parse(localStorage.getItem("user")).admin === "ROLE_MANAGER" &&
-          <button onClick={()=>{ // 팀에서 해당 멤버 삭제
-            //const member_id = JSON.parse(localStorage.getItem("user")).id
-            //const id = JSON.stringify(member_id);
-          
+          <button onClick={()=>{ // 팀에서 해당 멤버 삭제button
+            const member_id = JSON.stringify(JSON.parse(localStorage.getItem("user")).id)          
             
-            // axios.post(`/api/member/${id}`)
+            axios.post(`/api/member/${member_id}/delete`)
             
-            // .then(function(response) {
-            //   console.log(typeof response.data);
-            //   console.log(response.data)
-            //   localStorage.setItem("team_member", JSON.stringify(response.data));
+            .then(function(response) {
+
+              console.log(response.data)
+            
               
-            // })
-            // this.setState({teammember:JSON.parse(localStorage.getItem("team_member"))}) 
+            })
+            
             
           }}
           className='btn-danger'>추방</button>

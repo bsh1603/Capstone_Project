@@ -43,7 +43,7 @@ class Login extends Component {
       email: e.target.value,
     });
   }
-
+tutorials
   onChangePwd(e) {
     this.setState({
       pwd: e.target.value,
@@ -73,11 +73,11 @@ class Login extends Component {
         const json = localStorage.getItem("user");
         console.log(JSON.parse(json));
 
-        const member_id = JSON.parse(localStorage.getItem("user")).id
+        const member_id = JSON.stringify(JSON.parse(localStorage.getItem("user")).id)
   
-        const id = JSON.stringify(member_id);
+        
   
-  axios.get(`/api/member/${id}`)
+  axios.get(`/api/member/${member_id}`)
   
   .then(function(response) {
     console.log(typeof response.data);

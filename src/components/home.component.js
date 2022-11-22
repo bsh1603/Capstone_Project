@@ -13,7 +13,7 @@ import WorkTime from './work-time';
 
 import TeamMember from './team-member';
 import Profile from './profile.component';
-import Item from './item';
+import Stock from './stock';
 
 
 function Cal() {
@@ -76,7 +76,7 @@ export default class Home extends Component {
       <Routes>
             <Route path="work" element={ <WorkTime/>} />
             <Route path="members" element={<TeamMember></TeamMember>} />
-            <Route path="item" element={<Item/>} />
+            <Route path="item" element={<Stock/>} />
             <Route path="profile" element={<Profile />} /> 
         </Routes>
       <div>        <br/>    </div>

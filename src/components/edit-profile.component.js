@@ -90,12 +90,13 @@ class EditProfile extends Component {
   handleEdit(e) {
     e.preventDefault();
     e.stopPropagation();
+    const member_id = JSON.stringify(JSON.parse(localStorage.getItem("user")).id)
 
     this.form.validateAll(); // 회원 수정
 
 
     axios
-      .put("/api/signup/worker", this.state)
+      .post(`/api/member/${member_id}/modify`, this.state)
       .then((res) => {
               console.log(res);
               console.log("데이터 전송 성공");

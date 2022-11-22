@@ -9,7 +9,7 @@ export const data = {
   datasets: [
     {
       label: '# of Votes',
-      data: [12, 3],
+      data: [3, 3],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -31,8 +31,8 @@ export const data = {
   ],
 };
 
-export function Chart() {
+export function Chart(props) {
   return (
-  <>일간 근무 <Pie data={data} /></>
+  <>일간 근무 {props.temp}<Pie data={data} /></>
   );
 }

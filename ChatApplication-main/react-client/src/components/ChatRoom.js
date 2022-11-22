@@ -145,6 +145,19 @@ const ChatRoom = () => {
 
     }
 
+    function CallMessage(firstid,sender,content){
+
+        //메세지 정보들을 받아와야함.
+
+        console.log("Message+++++++++++++++++++++++");
+        console.log(firstid);
+        console.log("Message+++++++++++++++++++++++");
+        axios.post(`/api/message/${roomId}`,{roomId : firstid, sender : sender , content : content})
+            .then((res)=>{
+                console.log(res.data)
+            }).catch((err)=>{console.log(err)})
+    }
+
     function test(sender_name,room_number){
 
         // 입력 눌렀을때 실행되는 함수
@@ -154,9 +167,9 @@ const ChatRoom = () => {
         console.log(room_number);
         axios.post("/api/room",{sender : sender_name, roomId : room_number})
             .then((res)=>{
-                console.log("+++++++++++++++++");
+
                 console.log(res.data);
-                console.log("+++++++++++++++++");
+
             }).catch((err)=>{console.log(err)})
 
         console.log("ROOOMMM+++++++++++++++++++++++");
@@ -244,6 +257,10 @@ const ChatRoom = () => {
                 margin="normal"
               />
               <button type="button" onClick={() => {
+                  //이게 일종의 멤버가 접근하는 버튼인데
+                  //이때 메세지도 다 불러와야함.
+                  //방 번호 주고 메세지 불러오자
+                  CallMessage(roomId,userData.username,userData.message)
                   registerUser()
                   test(userData.username,roomId)
               }} >

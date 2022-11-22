@@ -123,7 +123,7 @@ class Register extends Component {
             })
       .catch((err) => {
         console.error(err)
-        alert("회원가입 실패");
+        //alert("회원가입 실패");
       });
 
     

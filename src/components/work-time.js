@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import dayjs from "dayjs";
+import { Chart } from './chart';
 
-import moment from 'moment';
-import 'moment/locale/ko';	
+
 
 
 class WorkTime extends Component {
@@ -22,7 +23,7 @@ class WorkTime extends Component {
   handleStart(e) {
     
     
-    this.setState({work_start_time : Date.now()});
+    this.setState({work_start_time : Date()});
     
     return axios
       .post("/api/work/start", {work_start_time : Date.now()} )
@@ -39,7 +40,7 @@ class WorkTime extends Component {
   handleEnd(e) {
     
     
-        this.setState({work_end_time : Date.now()});
+        this.setState({work_end_time : Date()});
           
         return axios
           .post("/api/work/end", {work_end_time : Date.now()}  )
@@ -50,13 +51,13 @@ class WorkTime extends Component {
             console.log(res.data);
           })
           .catch((err) => {console.error(err)
-            alert("실패");
+            //alert("실패");
           });}
 
     handleTime(e) {
     
     
-        //this.setState({work_today : Number(this.work_end_time)-Number(this.work_start_time)});
+        this.setState({work_today : this.work_end_time-this.work_start_time});
           
         axios
           .get("/api/work/today" )
@@ -67,7 +68,7 @@ class WorkTime extends Component {
             console.log(res.data);
           })
           .catch((err) => {console.error(err)
-            alert("실패");
+            //alert("실패");
           });}
   
 
@@ -96,7 +97,7 @@ class WorkTime extends Component {
         {work_today}
       </div>
 
-
+      <Chart></Chart>
 
     </div>
   );

@@ -47,9 +47,9 @@ class EditProfile extends Component {
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
-    this.onChangeTeamName = this.onChangeTeamName.bind(this);
     
-    this.onChangeAuthenticationCode =  this.onChangeAuthenticationCode.bind(this);
+    
+    
 
     this.state = {
       email: "",
@@ -91,22 +91,21 @@ class EditProfile extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    this.form.validateAll(); // 예외처리 로직 
+    this.form.validateAll(); // 회원 수정
 
 
-    this.props.router.navigate("/login");
-  //   axios
-  //     .post("/api/signup/worker", this.state)
-  //     .then((res) => {
-  //             console.log(res);
-  //             console.log("데이터 전송 성공");
-  //             alert("수정 성공");
-  //             this.props.router.navigate("/login");
+    axios
+      .put("/api/signup/worker", this.state)
+      .then((res) => {
+              console.log(res);
+              console.log("데이터 전송 성공");
+              alert("수정 성공");
+              this.props.router.navigate("/login");
 
-  //           })
-  //     .catch((err) => {console.error(err)
-  //       alert("수정 fail")
-  // });
+            })
+      .catch((err) => {console.error(err)
+        alert("수정 fail")
+  });
 
     
   }
@@ -207,4 +206,4 @@ class EditProfile extends Component {
   }
 }
 
-export default withRouter(EditProfile);
+export default EditProfile;

@@ -66,43 +66,31 @@ class Login extends Component {
       .then((res) => {
         
         this.props.router.navigate("/home");
-        localStorage.setItem('email', this.state.email);
-                
+        localStorage.setItem('email', this.state.email);                
         localStorage.setItem("user", JSON.stringify(res.data));
+
+        
         const json = localStorage.getItem("user");
         console.log(JSON.parse(json));
 
-        
+        const member_id = JSON.parse(localStorage.getItem("user")).id
+  
+        const id = JSON.stringify(member_id);
+  
+  axios.get(`/api/member/${id}`)
+  
+  .then(function(response) {
+    console.log(typeof response.data);
+    console.log(response.data)
+    localStorage.setItem("team_member", JSON.stringify(response.data));
+    
+  })
       })
       .catch((err) => {console.error(err)
         alert("로그인실패");
       });
       
-    // if (this.checkBtn.context._errors.length === 0) {
-    //   AuthService.login(this.state.email, this.state.pwd).then(
-    //     () => {
-    //       this.props.router.navigate("/profile");
-    //       window.location.reload();
-    //     },
-    //     (error) => {
-    //       const resMessage =
-    //         (error.response &&
-    //           error.response.data &&
-    //           error.response.data.message) ||
-    //         error.message ||
-    //         error.toString();
-
-    //       this.setState({
-    //         loading: false,
-    //         message: resMessage,
-    //       });
-    //     }
-    //   );
-    // } else {
-    //   this.setState({
-    //     loading: false,
-    //   });
-    // }
+    
   }
 
   render() {

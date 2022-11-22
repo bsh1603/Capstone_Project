@@ -51,14 +51,11 @@ export default class Profile extends Component {
         </ul>
       </div>
 
-      <Link to={"editprofile"} className="nav-item"  >
+      <Link to="editprofile" className="nav-item"  >
                 프로필 수정
       </Link>
 
-      <Routes>
-            
-        <Route path="editprofile" element={<EditProfile/>} />
-      </Routes>
+      
 
 
       </div>

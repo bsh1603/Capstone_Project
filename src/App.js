@@ -13,13 +13,13 @@ import Profile from "./components/profile.component";
 //import BoardUser from "./components/board-user.component";
 //import BoardAdmin from "./components/board-admin.component";
 
-import AddItem from "./components/add-inventory.component";
-import ItemsList from "./components/inventory-list.component";
-import Item from "./components/inventory.component";
+
 //import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import WorkTime from "./components/work-time";
 import { Chart } from "./components/chart";
+import EditProfile from "./components/edit-profile.component";
+import TeamMember from "./components/team-member";
 
 
 //const IsLogin = () => !!localStorage.getItem('email');
@@ -76,14 +76,7 @@ class App extends Component {
               </Link>
             </li>
           
-            <li className="nav-item">
-                <Link to={"chart"} className="nav-link">
-                  근무Chart 
-                </Link>
-              </li>
-            
-          
-            
+                        
             <li className="nav-item">
                 <a href="login" className="nav-link" onClick={this.logOut}>
                   LogOut
@@ -120,7 +113,7 @@ class App extends Component {
                 </Link>
               </li>
 
-                            
+            
 
 
             </div>
@@ -135,15 +128,18 @@ class App extends Component {
             <Route path="signup/manager" element={<Register />} />
             <Route path="signup/worker" element={<WorkerRegister />} />
             
-          
-            <Route path="chart" element={<Chart />} />
-            {/* <Route path="/members" element={<TeamMember />} /> */}
-
-            <Route path="item/add" element={<AddItem/>} />          
             
+            <Route path="chart" element={<Chart />} />
+            {/*    */}
+
+                  
+            
+        
+        <Route path="/home/profile/editprofile" element={<EditProfile/>} />
+      </Routes>
 
 
-          </Routes>
+
         </div>
 
         {/* <AuthVerify logOut={this.logOut}/> */}

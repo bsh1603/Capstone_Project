@@ -10,7 +10,7 @@ import "./Toggle.css"
 import AuthService from "../services/auth.service";
 import EditProfile from './edit-profile.component';
 import WorkTime from './work-time';
-import ItemsList from './inventory-list.component';
+
 import TeamMember from './team-member';
 import Profile from './profile.component';
 import Item from './item';
@@ -26,51 +26,6 @@ function Cal() {
   );
 }
 
-class ToggleForm extends React.Component {
-  state = {
-    checked: false,
-
-
-  };
-
-  handleChange = (e) => {
-    //this.setState({ checked: e.target.checked });
-    //const work_start_time = Date.now();
-    axios
-      .post("/api/work/start", {withCredentials: true})
-      .then((res) => {
-        
-        
-        console.log(res.data);
-      })
-      .catch((err) => console.error(err));
-  };
-
-  setSize(e) {
-    this.setState((prevState) => ({
-      size: prevState.size === "default" ? "large" : "default"
-    }));
-  }
-
-  
-
-  render() {
-    return (
-      <>       
-                
-        {/* <Toggle
-          checked={this.state.checked}
-          text="근무시작"
-          size={this.state.size}
-          
-          onChange={this.handleChange}
-          offstyle="btn-danger"
-          onstyle="btn-success"
-        /> */}
-      </>
-    );
-  }
-}
 
 export default class Home extends Component {
   constructor(props) {

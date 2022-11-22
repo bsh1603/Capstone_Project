@@ -20,9 +20,6 @@ const ChatRoom = () => {
       });
     useEffect(() => {
       console.log(userData);
-      console.log("************************");
-      console.log("************************");
-      console.log("************************");
     }, [userData]);
 
     const connect =()=>{
@@ -107,6 +104,7 @@ const ChatRoom = () => {
     const onKeyPress = (e) =>{
         if(e.key == 'Enter'){
             sendValue();
+            messagePost(roomId,userData.username, userData.message);
         }
     }
 
@@ -138,18 +136,44 @@ const ChatRoom = () => {
         console.log(" getUser success!! ");
     }
 
-    function postUser(){
-        axios.post('/server',{firstName : "heo"});
-        console.log(" postUser success!! ");
 
-    }
-
-    function registerUser(){
+    function registerUser(username){
         console.log("register !");
-        postUser();
+
         connect();
+
+
     }
 
+    function test(sender_name,room_number){
+
+        // 입력 눌렀을때 실행되는 함수
+        // axios.post로 hi 받아옴
+        console.log("ROOOMMM+++++++++++++++++++++++");
+        console.log(sender_name);
+        console.log(room_number);
+        axios.post("/api/room",{sender : sender_name, roomId : room_number})
+            .then((res)=>{
+                console.log("+++++++++++++++++");
+                console.log(res.data);
+                console.log("+++++++++++++++++");
+            }).catch((err)=>{console.log(err)})
+
+        console.log("ROOOMMM+++++++++++++++++++++++");
+    }
+
+    function messagePost(firstid ,sender , content){
+        //메세지 저장하기 위해 보내는 함수
+        console.log("++++++++++ message test! +++++++++++++++");
+        console.log(parseInt(firstid));
+        console.log(sender);
+        console.log(content);
+        axios.post(`/api/room/${roomId}`,{roomId : firstid, sender : sender , content : content})
+            .then((res)=>{
+                console.log(res.data)
+            }).catch((err)=>{console.log(err)})
+
+    }
 
 
     return (
@@ -178,11 +202,17 @@ const ChatRoom = () => {
 
                     ))}
                 </ul>
-                {/*브로드캐스팅 보내는 부분 */}
+                {/* --------------------- */}
+                {/* 메세지 실제로 보내는 부분 */}
+                {/* --------------------- */}
                 <div className="send-message">
                     <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onKeyPress={onKeyPress} onChange={handleMessage} />
-                    <button type="button" className="send-button" onClick={sendValue}>send</button>
+                    <button type="button" className="send-button" onClick={() => {
+                        sendValue();
+                        messagePost(roomId,userData.username, userData.message);
+                    }}>send</button>
                 </div>
+
             </div>}
             {tab!==roomId && <div className="chat-content">
                 <ul className="chat-messages">
@@ -213,7 +243,10 @@ const ChatRoom = () => {
                 onChange={handleUsername}
                 margin="normal"
               />
-              <button type="button" onClick={registerUser} >
+              <button type="button" onClick={() => {
+                  registerUser()
+                  test(userData.username,roomId)
+              }} >
                     입장
               </button> 
         </div>}

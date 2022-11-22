@@ -26,6 +26,9 @@ public class MessageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
+    @Column(length = 200)
+    private String sender;
+
 
     @Column(length = 200)
     private String content;

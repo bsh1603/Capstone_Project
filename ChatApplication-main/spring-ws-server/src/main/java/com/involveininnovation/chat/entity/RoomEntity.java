@@ -24,8 +24,8 @@ public class RoomEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @Column(length = 200)
-    private String Roomname;
+    @Column
+    private Integer roomname;
 
     @Column
     private Integer teamnumber;

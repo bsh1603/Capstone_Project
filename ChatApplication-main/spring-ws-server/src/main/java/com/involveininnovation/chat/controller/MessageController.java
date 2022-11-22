@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -31,13 +34,29 @@ public class MessageController {
     }
 
     @PostMapping("/api/message/{roomId}")
-    public MessagePacket callMessage(@RequestBody RoomPacket roomPacket){
-        //메세지 보내기 성공
-        
-        MessagePacket m1 = new MessagePacket();
-        m1.setSender("heo");
-        m1.setContent("hi");
-        m1.setRoomId(1);
-        return m1;
+    public List<MessagePacket> callMessage(@RequestBody RoomPacket roomPacket){
+        //프론트엔드로 메세지 보내기 성공
+        List<MessageEntity> mL = this.roomService.getAllMessage(roomPacket.getRoomId());
+        //메세지 없으면 보내지 말자. (null인 경우)
+        List<MessagePacket> mP = new ArrayList<MessagePacket>();
+
+        //메세지 패킷으로 보내자.
+        if(mL == null){
+            return null;
+        }else{
+            //엔티티에 있는거 패킷에 다 집어넣기
+            for(int i=0; i< mL.size() ; ++i){
+                MessagePacket mp1 = new MessagePacket();
+                mp1.setSender(mL.get(i).getSender());
+                mp1.setContent(mL.get(i).getContent());
+
+                mP.add(mp1);
+            }
+
+            return mP;
+        }
+
+
+
     }
 }

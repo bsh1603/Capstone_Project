@@ -56,6 +56,10 @@ const ChatRoom = () => {
                 if(payloadData.receiverName!= roomId){
                     break;
                 }
+                console.log("++++++public chat 확인 ++++++++")
+                console.log(payloadData)
+                console.log(typeof payloadData)
+                console.log("++++++public chat 확인 ++++++++")
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 break;
@@ -128,6 +132,7 @@ const ChatRoom = () => {
 
     const handleUsername=(event)=>{
         const {value}=event.target;
+
         setUserData({...userData,"username": value});
     }
 
@@ -145,17 +150,38 @@ const ChatRoom = () => {
 
     }
 
+    function sleep(ms) {
+        const wakeUpTime = Date.now() + ms;
+        while (Date.now() < wakeUpTime) {}
+    }
     function CallMessage(firstid,sender,content){
 
         //메세지 정보들을 받아와야함.
+        //잘 받았어!!
 
-        console.log("Message+++++++++++++++++++++++");
         console.log(firstid);
-        console.log("Message+++++++++++++++++++++++");
+
         axios.post(`/api/message/${roomId}`,{sender : sender ,roomId : firstid})
             .then((res)=>{
-                console.log(res.data)
+                console.log("Message Database processing +++++++++++++++++++++++");
+                console.log(res.data[0].content)
+                console.log(typeof res.data)
+                for (var i in  res.data){
+                    console.log(res.data[i])
+                    //이러지말고 publicChat에 추가해주자.
+                    //publicChat은 JSON같은 object형식이다.
+                    var o1 ={senderName: res.data[i].sender, receiverName: firstid, message: res.data[i].content, date: null, status: 'MESSAGE'};
+                    publicChats.push(o1)
+
+
+                }
+                //setUserData({...userData,"message":""});
+                userData.message="";
+
+                console.log("Message Database processing +++++++++++++++++++++++");
             }).catch((err)=>{console.log(err)})
+
+        //이제 잘받은거 메세지로 쏴주면 되잖아?
     }
 
     function test(sender_name,room_number){
@@ -203,7 +229,8 @@ const ChatRoom = () => {
 
                 </ul>
             </div>
-            {3==3 && <div className="chat-content">
+
+            {<div className="chat-content" >
                 <ul className="chat-messages">
                     {publicChats.map((chat,index)=>(
 
@@ -262,6 +289,7 @@ const ChatRoom = () => {
                   //방 번호 주고 메세지 불러오자
                   CallMessage(roomId,userData.username,userData.message)
                   registerUser()
+                  sleep(500);
                   test(userData.username,roomId)
               }} >
                     입장

@@ -3,16 +3,18 @@ import axios from 'axios';
 import dayjs from "dayjs";
 import { Chart } from './chart';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
+
+import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const data = {
-  labels: ['Red', 'Blue', ],
+export const data = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
     {
       label: '# of Votes',
-      data: [3, 3],
+      data: [12, 19],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -33,6 +35,10 @@ const data = {
     },
   ],
 };
+
+export function Chart2() {
+  return <Doughnut data={data} />;
+}
 
 class WorkTime extends Component {
   constructor(props) {
@@ -161,8 +167,8 @@ class WorkTime extends Component {
         {work_today}
       </div>
         
-      <Pie data={data} />
-    
+      <Chart data={data} />
+      
     </div>
   );
 };

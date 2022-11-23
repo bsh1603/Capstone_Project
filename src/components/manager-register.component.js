@@ -61,6 +61,7 @@ class Register extends Component {
       phone: "",
       authentication_code: "",
       team_name: "",
+      team_address: ""
       // successful: false,
       // message: "",
     };
@@ -95,6 +96,12 @@ class Register extends Component {
     });
   }
 
+  onChangeTeamAddress(e) {
+    this.setState({
+      team_address: e.target.value,
+    });
+  }
+
   onChangeAuthenticationCode(e) {
     this.setState({
       authentication_code: e.target.value,
@@ -116,14 +123,14 @@ class Register extends Component {
       .post("/api/signup/manager", this.state)
       .then((res) => {
               console.log(res);
-              console.log("데이터 전송 성공");
+              
               alert("회원가입 성공");
               localStorage.setItem("user", JSON.stringify(res.data));
               this.props.router.navigate("/login");
             })
       .catch((err) => {
         console.error(err)
-        //alert("회원가입 실패");
+        alert("회원가입 실패");
       });
 
     
@@ -193,6 +200,8 @@ class Register extends Component {
                   />
                 </div>
 
+
+
                                 
 
                 <div className="form-group">
@@ -216,6 +225,18 @@ class Register extends Component {
                     onChange={this.onChangeTeamName}
                   />
                 </div>
+
+                <div className="form-group">
+                  <label> 지점주소 </label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="team_address"
+                    value={this.state.team_address}
+                    onChange={this.onChangeTeamAddress}
+                  />
+                </div>
+
                 <div className="form-group">
                   <button className="btn btn-primary btn-block">
                     매니저 회원가입</button>

@@ -1,15 +1,16 @@
 import React from 'react';
+import reactC3js from 'react-c3js';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const data = {
-  labels: ['Red', 'Blue', ],
+  labels: ['Red', 'Blue'],
   datasets: [
     {
       label: '# of Votes',
-      data: [3, 3],
+      data: [12, 19],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -31,8 +32,6 @@ export const data = {
   ],
 };
 
-export function Chart(props) {
-  return (
-  <>일간 근무 {props.temp}<Pie data={data} /></>
-  );
+export function Chart() {
+  return <Doughnut data={data} />;
 }

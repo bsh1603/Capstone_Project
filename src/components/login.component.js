@@ -69,11 +69,17 @@ tutorials
         localStorage.setItem('email', this.state.email);                
         localStorage.setItem("user", JSON.stringify(res.data));
 
+        //JSON.parse(localStorage.getItem("user"))[Object.keys(JSON.parse(localStorage.getItem("user")))[0]].id;
         
-        const json = localStorage.getItem("user");
-        console.log(JSON.parse(json));
+        const a = JSON.parse( localStorage.getItem("user"));
+        console.log(a[Object.keys(a)[0]].id);
+        console.log(a[Object.keys(a)[0]].name);
 
-        const member_id = JSON.stringify(JSON.parse(localStorage.getItem("user")).id)
+
+
+        const member_id = JSON.parse(localStorage.getItem("user"))[Object.keys(JSON.parse(localStorage.getItem("user")))[0]].id
+        console.log(member_id);
+        // JSON.stringify(JSON.parse(localStorage.getItem("user")).id)
   
         
   

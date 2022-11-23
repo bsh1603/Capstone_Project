@@ -49,8 +49,6 @@ class EditProfile extends Component {
     this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
     
     
-    
-
     this.state = {
       email: "",
       name: "",
@@ -90,7 +88,8 @@ class EditProfile extends Component {
   handleEdit(e) {
     e.preventDefault();
     e.stopPropagation();
-    const member_id = JSON.stringify(JSON.parse(localStorage.getItem("user")).id)
+    const member_id = JSON.parse(localStorage.getItem("user"))[Object.keys(JSON.parse(localStorage.getItem("user")))[0]].id
+    //JSON.stringify(JSON.parse(localStorage.getItem("user")).id)
 
     this.form.validateAll(); // 회원 수정
 

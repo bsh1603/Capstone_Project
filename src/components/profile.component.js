@@ -39,12 +39,17 @@ export default class Profile extends Component {
           </h3>
         </header>
         
-          <strong>user id: </strong>{JSON.parse(localStorage.getItem("user")).id} <br/>
+          <strong>member id: </strong>
+          {JSON.parse(localStorage.getItem("user"))[Object.keys(JSON.parse(localStorage.getItem("user")))[0]].id} <br/>
+          {/* {JSON.parse(localStorage.getItem("user")).id} <br/> */}
 
-          <strong>name: </strong>{JSON.parse(localStorage.getItem("user")).name} <br/>
+          <strong>name: </strong>
+          {JSON.parse(localStorage.getItem("user"))[Object.keys(JSON.parse(localStorage.getItem("user")))[0]].name}
+          <br/>
 
         
-        <strong>Authorities:</strong> {JSON.parse(localStorage.getItem("user")).admin}
+        <strong>Authorities:</strong> 
+         {JSON.parse(localStorage.getItem("user"))[Object.keys(JSON.parse(localStorage.getItem("user")))[0]].admin}
         <ul>
           
           

@@ -26,11 +26,11 @@ public class MessageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @Column(length = 200)
+    @Column
     private String sender;
 
 
-    @Column(length = 200)
+    @Column
     private String content;
 
 

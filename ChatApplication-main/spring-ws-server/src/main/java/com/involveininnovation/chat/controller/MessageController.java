@@ -28,6 +28,7 @@ public class MessageController {
     public String createMessage(@RequestBody MessagePacket messagePacket){
         RoomEntity roomEntity = this.roomService.getRoom(messagePacket.getRoomId());
         //message 저장
+        System.out.println(messagePacket.getSender().getClass());
         this.messageService.create(roomEntity,messagePacket.getSender() ,messagePacket.getContent());
 
         return "message communication success";

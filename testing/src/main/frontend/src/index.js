@@ -1,13 +1,20 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import axios from "axios";
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+axios.defaults.withCredentials = true;
+
+
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
+
+serviceWorker.unregister();

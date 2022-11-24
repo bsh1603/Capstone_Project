@@ -24,14 +24,6 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 
-//    @PostMapping("/api/users")
-//    public Member member(){
-//        System.out.println("UserApiController 진입 성공");
-//
-//        Member member = new Member(1L, "테스트", "email@email.com", "pwd",  Administration.ROLE_WORKER, "01010101" ,"auth코드", "팀이름");
-//        return member;
-//    }
-
     @PostMapping("/api/signup/worker")
     public Long signUp_worker(@RequestBody @Valid MemberSignUpRequestDto memberSignUpRequestDto){
         return memberService.join_worker(memberSignUpRequestDto);
@@ -43,12 +35,12 @@ public class MemberController {
     }
 
     @PostMapping("/api/login")
-    public Map<String, Member> login(@RequestBody @Valid MemberSignInRequestDto requestDto) {
+    public Member login(@RequestBody @Valid MemberSignInRequestDto requestDto) {
         String token = memberService.login(requestDto);
         Member member = memberService.login2(requestDto);
         Map<String, Member> map = new HashMap<>();
         map.put(token, member);
-        return map;
+        return member;
     }
 
     @GetMapping("/members")

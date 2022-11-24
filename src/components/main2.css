@@ -1,0 +1,6 @@
+.Mains2 {
+    display: grid;
+    
+    float :right;
+    /* grid-template-columns: 60% 40%; */
+}

@@ -1,0 +1,14 @@
+/* src/page/main.css */
+
+.Mains_middle {
+    display: grid;
+    float :left;
+    width: 100px;
+    height: 600px;
+    /* grid-template-columns: 60% 40%; */
+}
+
+/* #Mains-left { border-right: solid 1px #aabbaa; } */
+/* #Mains-right { border-left: solid 1px #aabbaa; } */
+
+

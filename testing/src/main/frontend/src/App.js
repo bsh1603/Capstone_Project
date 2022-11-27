@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 import ChatSetting from "./pages/ChatSetting";
 import Login from "./pages/Login";
@@ -12,20 +13,17 @@ import Work from "./pages/Work";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<div>루트페이지</div>} />
-        <Route path="/main" element={<Main />} />
-        <Route path="/registermanager" element={<RegisterManager />} />
-        <Route path="/registerworker" element={<RegisterWorker />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="member" element={<Member />} />
-        <Route path="/stock" element={<Stock />} />
-        <Route path="/chatsetting" element={<ChatSetting />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="/registermanager" element={<RegisterManager />} />
+      <Route path="/registerworker" element={<RegisterWorker />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/work" element={<Work />} />
+      <Route path="member" element={<Member />} />
+      <Route path="/stock" element={<Stock />} />
+      <Route path="/chatsetting" element={<ChatSetting />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
   );
 }
 

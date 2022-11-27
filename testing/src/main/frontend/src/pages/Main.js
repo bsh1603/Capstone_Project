@@ -1,6 +1,18 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import NavBar from "../components/NavBar";
+import { userState } from "../recoil/atom";
 
 const Main = () => {
+  const user = useRecoilValue(userState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user.id) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <>
       <NavBar />
@@ -8,4 +20,5 @@ const Main = () => {
     </>
   );
 };
+
 export default Main;
